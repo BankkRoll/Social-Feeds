@@ -30,7 +30,7 @@ interface SettingsProps {
 
 const Settings: React.FC<SettingsProps> = ({ userData }) => {
   const address = useAddress();
-  const siteurl = "https://socialfeeds.vercel.com";
+  const siteurl = "https://socialfeeds.vercel.app";
   const { toast } = useToast();
   const router = useRouter();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);

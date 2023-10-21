@@ -16,7 +16,7 @@ interface InterfaceProps {
 
 const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
   const address = useAddress();
-  const siteurl = "https://socialfeeds.vercel.com";
+  const siteurl = "https://socialfeeds.vercel.app";
   const [selectedFont, setSelectedFont] = useState<string>(
     interfaceData?.general?.font || ""
   );

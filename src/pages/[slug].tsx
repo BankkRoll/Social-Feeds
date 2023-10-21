@@ -220,7 +220,7 @@ const UserProfile: React.FC = () => {
       <div className="flex py-6">
         Powered by&nbsp;
         <a
-          href="https://socialfeeds.vercel.com"
+          href="https://socialfeeds.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
         >
