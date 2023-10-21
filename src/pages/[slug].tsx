@@ -10,6 +10,7 @@ import {
 import { db } from "../../firebaseClient";
 import Link from "next/link";
 import { Tweet } from "react-tweet";
+import LoadingScreen from "../../components/ui/loading";
 
 interface TweetType {
   id: string;
@@ -21,12 +22,15 @@ const UserProfile: React.FC = () => {
   const [interfaceData, setInterfaceData] = useState<any>(null);
   const router = useRouter();
   const { slug } = router.query;
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true);
 
   useEffect(() => {
     if (interfaceData?.general?.font) {
       document.body.setAttribute("data-font", interfaceData?.general?.font);
     }
   }, [interfaceData?.general?.font]);
+
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -40,6 +44,9 @@ const UserProfile: React.FC = () => {
             setUserData(doc.data());
             setInterfaceData(doc.data().interface);
           });
+          setTimeout(() => {
+            setShowLoadingScreen(false);
+          }, 2500);
         } else {
           router.push("/");
         }
@@ -56,6 +63,9 @@ const UserProfile: React.FC = () => {
     : { backgroundColor: interfaceData?.general?.backgroundColor };
 
   return (
+    <>
+      {showLoadingScreen && <LoadingScreen />}
+
     <div
       className="flex flex-col items-center bg-background min-h-screen"
       style={{
@@ -237,6 +247,7 @@ const UserProfile: React.FC = () => {
         </a>
       </div>
     </div>
+    </>
   );
 };
 

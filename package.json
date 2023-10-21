@@ -29,6 +29,7 @@
     "cors": "^2.8.5",
     "ethers": "^5.7.2",
     "firebase": "^10.5.0",
+    "framer-motion": "^10.16.4",
     "gsap": "^3.12.2",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",

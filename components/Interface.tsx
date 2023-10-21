@@ -8,6 +8,7 @@ import { FontCombobox } from "./ui/combobox";
 import { toast } from "./ui/use-toast";
 import { ToastAction } from "./ui/toast";
 import { User, UserInterface } from "../type";
+import Link from "next/link";
 
 interface InterfaceProps {
   interfaceData: UserInterface;
@@ -16,13 +17,13 @@ interface InterfaceProps {
 
 const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
   const address = useAddress();
-  const siteurl = "https://socialfeeds.vercel.app";
   const [selectedFont, setSelectedFont] = useState<string>(
     interfaceData?.general?.font || ""
   );
   const [settings, setSettings] = useState<any>(
     interfaceData || {
       general: { backgroundColor: "", font: selectedFont, templateId: "" },
+      loading: { backgroundColor: "#000000" },
       header: {
         userNameColor: "",
         userNameBackgroundColor: "",
@@ -76,7 +77,7 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
           { merge: true }
         );
 
-        const profileUrl = `${siteurl}/${userData.profile.userName}`;
+        const profileUrl = `/${userData.profile.userName}`;
         const copyToClipboard = () => {
           navigator.clipboard.writeText(profileUrl);
 
@@ -93,9 +94,9 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
           description: "Your interface settings have been successfully saved.",
           action: (
             <div className="flex space-x-4">
-              <a href={profileUrl} target="_blank" rel="noopener noreferrer">
+              <Link href={profileUrl} target="_blank" rel="noopener noreferrer">
                 <ToastAction altText="View">View</ToastAction>
-              </a>
+              </Link>
               <ToastAction altText="Copy" onClick={copyToClipboard}>
                 Copy
               </ToastAction>
@@ -170,6 +171,21 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
                   Enable Gradient
                 </button>
               )}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-2xl font-semibold">
+              Loading Screen Background:
+            </h2>
+            <div className="flex justify-between items-center">
+              <label className="text-lg">Background Color:</label>
+              <CircularColorPicker
+                value={settings.loading.backgroundColor || ""}
+                onChange={(newColor) =>
+                  updateColorSetting(newColor, "loading", "backgroundColor")
+                }
+              />
             </div>
           </div>
 

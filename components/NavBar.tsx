@@ -34,8 +34,10 @@ const Navbar: React.FC = () => {
               timeStamp: new Date().toISOString(),
               userName: "",
               bio: "",
-              avatarImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
-              bannerImg: "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg",
+              avatarImg:
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+              bannerImg:
+                "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg",
             },
             interface: {
               ...randomPalette,

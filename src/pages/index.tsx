@@ -1,35 +1,37 @@
+import React, { useEffect, useState } from 'react';
 import AboutUs from "../../components/About";
 import Features from "../../components/Features";
+import FeaturedProfiles from "../../components/FeaturedProfiles";
+import { DocumentData, collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebaseClient";
+import FootBar from '../../components/FootBar';
 
 export default function Home() {
-  return (
-    <div className="bg-background max-w-3xl m-auto flex flex-col items-center justify-center min-h-screen">
-      {/* TODO: Add Hero Section with GSAP or Framer Motion Animation */}
+  const [randomProfiles, setRandomProfiles] = useState<DocumentData[] | null>(null);
 
+  useEffect(() => {
+    const fetchAllProfiles = async () => {
+      const usersRef = collection(db, "users");
+      const querySnapshot = await getDocs(usersRef);
+      const allProfiles: DocumentData[] = [];
+      
+      querySnapshot.forEach((doc) => {
+        allProfiles.push(doc.data());
+      });
+      
+      allProfiles.sort(() => Math.random() - 0.5);
+      setRandomProfiles(allProfiles.slice(0, 6));
+    };
+
+    fetchAllProfiles();
+  }, []);
+
+  return (
+    <div className="bg-background max-w-4xl m-auto flex flex-col items-center justify-center min-h-screen">      
       <AboutUs />
       <Features />
-      {/* TODO: Add Contact Us Section */}
-      {/* TODO: Add Footer Section */}
-
-      {/* TODO: Add Scroll-based Animations */}
-      {/* TODO: Add Hover-based Interactions */}
-      {/* TODO: Add Parallax Effects */}
-      <div className="flex flex-nowrap justify-center items-center mt-10 mb-4 text-center w-full">
-        <span className="inline">{new Date().getFullYear()} </span>
-        <a
-          href="https://socialfeeds.vercel.app"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-2"
-        >
-          <img className="h-4 w-20 inline" src="/testr.png" alt="SocialTree" />
-        </a>
-        <span className="inline">&copy; - Developed by&nbsp;</span>
-        <a href="http://twitter.com/bankkroll_eth" className="underline inline">
-          {" "}
-          Bankkroll
-        </a>
-      </div>
+      <FeaturedProfiles randomProfiles={randomProfiles} />
+      <FootBar />
     </div>
   );
 }

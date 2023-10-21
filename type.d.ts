@@ -54,6 +54,11 @@ export interface SocialPlatform {
     font: string;
     templateId: string;
   }
+
+    // Loading screen settings
+    export interface LoadingPalette {
+      backgroundColor: string;
+    }
   
   // Type for Header settings in color palette
   export interface HeaderPalette {
@@ -87,10 +92,7 @@ export interface SocialPlatform {
     otherInfo: OtherInfoPalette;
     contact: ContactPalette;
   }
-  
-  // Type for user interface settings, extending ColorPalette
-  export interface UserInterface extends ColorPalette {}
-  
+    
   /**
    * Main User Type
    */
@@ -101,4 +103,8 @@ export interface SocialPlatform {
     socials: Socials;
     tweets: Tweets;
   }
-  
+
+
+export interface UserInterface extends ColorPalette {
+  loading?: LoadingPalette; // Add this line
+}

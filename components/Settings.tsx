@@ -23,6 +23,7 @@ import { User, Profile, Socials, Tweets, SocialPlatform, Tweet } from "../type";
 import { useToast } from "./ui/use-toast";
 import { ToastAction } from "./ui/toast";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface SettingsProps {
   userData: User;
@@ -30,7 +31,6 @@ interface SettingsProps {
 
 const Settings: React.FC<SettingsProps> = ({ userData }) => {
   const address = useAddress();
-  const siteurl = "https://socialfeeds.vercel.app";
   const { toast } = useToast();
   const router = useRouter();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -93,14 +93,39 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
     }));
   };
 
-  // TODO: handle image upload to a url then to firebase as a url
-  const handleImageChange = (
+  const handleImageChange = async (
     e: ChangeEvent<HTMLInputElement>,
     setImageFile: React.Dispatch<React.SetStateAction<File | null>>
   ) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file);
+      try {
+        setImageFile(file);
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to upload the image. Please try again.",
+        });
+      }
+    }
+  };
+
+    const uploadToImgbb = async (imageFile: File, apiKey: string) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    const response = await fetch(
+      `https://api.imgbb.com/1/upload?key=${apiKey}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    if (response.ok) {
+      const json = await response.json();
+      return json.data.url;
+    } else {
+      throw new Error("Failed to upload image to Imgbb");
     }
   };
 
@@ -123,15 +148,34 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
         return;
       }
 
+      const imgbbApiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+      let avatarUrl: string | null = null;
+      let bannerUrl: string | null = null;
+
+      if (imgbbApiKey) {
+        if (avatarFile) {
+          avatarUrl = await uploadToImgbb(avatarFile, imgbbApiKey);
+        }
+        if (bannerFile) {
+          bannerUrl = await uploadToImgbb(bannerFile, imgbbApiKey);
+        }
+      }
+
+      const updatedProfile = {
+        ...profile,
+        avatarImg: avatarUrl || profile.avatarImg,
+        bannerImg: bannerUrl || profile.bannerImg,
+      };
+
       const userRef = doc(db, "users", address);
       try {
         await updateDoc(userRef, {
-          profile: { ...profile },
+          profile: updatedProfile,
           socials: { ...socials },
           tweets: { ...tweets },
         });
 
-        const profileUrl = `${siteurl}/${profile.userName}`;
+        const profileUrl = `/${profile.userName}`;
         const copyToClipboard = () => {
           navigator.clipboard.writeText(profileUrl);
 
@@ -148,9 +192,9 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
           description: "Your settings have been successfully saved.",
           action: (
             <div className="flex space-x-4">
-              <a href={profileUrl} target="_blank" rel="noopener noreferrer">
+              <Link href={profileUrl} target="_blank" rel="noopener noreferrer">
                 <ToastAction altText="View">View</ToastAction>
-              </a>
+              </Link>
               <ToastAction altText="Copy" onClick={copyToClipboard}>
                 Copy
               </ToastAction>

@@ -22,6 +22,9 @@ export const colorPalettes = [
       textColor: "#F4A261",
       emailUnderlineColor: "#2A9D8F",
     },
+    loading: {
+      backgroundColor: "#F4A261",
+    },
   },
   {
     // Palette 2: Modern & Minimalistic
@@ -45,6 +48,9 @@ export const colorPalettes = [
     contact: {
       textColor: "#E0E0E0",
       emailUnderlineColor: "#616161",
+    },
+    loading: {
+      backgroundColor: "#333333",
     },
   },
   {
@@ -70,6 +76,9 @@ export const colorPalettes = [
       textColor: "#5D5D5A",
       emailUnderlineColor: "#917F70",
     },
+    loading: {
+      backgroundColor: "#B5A59D",
+    }
   },
   {
     // Palette 4: Nature & Tranquil
@@ -94,6 +103,9 @@ export const colorPalettes = [
       textColor: "#6D9DC5",
       emailUnderlineColor: "#C5B4E3",
     },
+    loading: {
+      backgroundColor: "#C598D8",
+    }
   },
   {
     // Palette 5: Retro & Vintage
@@ -118,5 +130,8 @@ export const colorPalettes = [
       textColor: "#8C7851",
       emailUnderlineColor: "#C4A77D",
     },
+    loading: {
+      backgroundColor: "#C4A77D",
+    }
   },
 ];

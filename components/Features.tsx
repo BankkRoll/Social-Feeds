@@ -2,11 +2,9 @@ import React from "react";
 import {
   GlowCard,
   GlowCardHeader,
-  GlowCardFooter,
   GlowCardTitle,
   GlowCardDescription,
   GlowCardContent,
-  GlowCardImage,
 } from "./ui/card-glow";
 
 const Features: React.FC = () => {
