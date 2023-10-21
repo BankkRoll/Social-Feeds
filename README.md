@@ -2,6 +2,8 @@
 
 > 🚧 **Status: In Progress**
 
+## View it in action https://socialfeeds.vercel.app/Bankk
+
 ## To-Do
 - [ ] Fix SVGs to allow styling for color
 - [ ] Adjust SVGs to be brighter, matching the platform color on social cards
