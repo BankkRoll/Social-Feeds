@@ -121,16 +121,25 @@ const UserProfile: React.FC = () => {
           const isActive = userData?.socials[platform]?.active;
           const svgPath = `/svg/${platform}.svg`;
 
-          return isActive ? (
-            <a
-              href={
-                /^https?:\/\//.test(userData?.socials[platform]?.siteurl)
-                  ? userData?.socials[platform]?.siteurl
-                  : `http://${userData?.socials[platform]?.siteurl}`
-              }
+          if (!isActive) return null;
+
+          const siteurl = userData?.socials[platform]?.siteurl;
+          const clickable = siteurl && siteurl.length > 0;
+
+          const Wrapper = clickable ? "a" : "div";
+
+          const href = /^https?:\/\//.test(siteurl)
+            ? siteurl
+            : `http://${siteurl}`;
+
+          return (
+            <Wrapper
+              {...(clickable && {
+                href,
+                target: "_blank",
+                rel: "noopener noreferrer",
+              })}
               key={platform}
-              target="_blank"
-              rel="noopener noreferrer"
             >
               <div className="relative rounded-lg overflow-hidden group hover:scale-105 transition-transform duration-200 ease-in-out">
                 <img
@@ -156,8 +165,8 @@ const UserProfile: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </a>
-          ) : null;
+            </Wrapper>
+          );
         })}
       </div>
 
