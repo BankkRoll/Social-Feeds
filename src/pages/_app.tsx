@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import {
   ThirdwebProvider,
   ConnectWallet,
@@ -14,13 +14,13 @@ import {
 import "../styles/globals.css";
 import { ThemeProvider } from "../../components/ui/theme-provider";
 import Navbar from "../../components/NavBar";
-import { Toaster } from "../../components/ui/toaster"
+import { Toaster } from "../../components/ui/toaster";
 
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  
+
   return (
     <ThirdwebProvider
       activeChain="ethereum"
@@ -36,15 +36,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       ]}
     >
       <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-        {router.pathname !== '/[slug]' && <Navbar />}
+        attribute="class"
+        defaultTheme="dark"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {router.pathname !== "/[slug]" && <Navbar />}
         <Component {...pageProps} />
         <Toaster />
-        </ThemeProvider>
+      </ThemeProvider>
     </ThirdwebProvider>
   );
 }
