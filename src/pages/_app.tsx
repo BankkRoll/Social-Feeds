@@ -2,7 +2,6 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import {
   ThirdwebProvider,
-  ConnectWallet,
   metamaskWallet,
   coinbaseWallet,
   walletConnect,
@@ -15,6 +14,7 @@ import "../styles/globals.css";
 import { ThemeProvider } from "../../components/ui/theme-provider";
 import Navbar from "../../components/NavBar";
 import { Toaster } from "../../components/ui/toaster";
+import { Analytics } from '@vercel/analytics/react';
 
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
 
@@ -44,6 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {router.pathname !== "/[slug]" && <Navbar />}
         <Component {...pageProps} />
         <Toaster />
+        <Analytics />
       </ThemeProvider>
     </ThirdwebProvider>
   );
