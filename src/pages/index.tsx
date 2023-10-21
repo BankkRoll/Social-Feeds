@@ -14,6 +14,14 @@ export default function Home() {
       {/* TODO: Add Scroll-based Animations */}
       {/* TODO: Add Hover-based Interactions */}
       {/* TODO: Add Parallax Effects */}
+      <div className="flex flex-nowrap justify-center items-center mt-10 mb-4 text-center w-full">
+  <span className="inline">{new Date().getFullYear()} </span>
+  <a href="https://socialfeeds.vercel.com" target="_blank" rel="noopener noreferrer" className="mx-2">
+    <img className="h-4 w-20 inline" src="/testr.png" alt="SocialTree" />
+  </a>
+  <span className="inline">&copy; - Developed by&nbsp;</span>
+  <a href="http://twitter.com/bankkroll_eth" className="underline inline">{" "}Bankkroll</a>
+</div>
 
     </div>
   );
