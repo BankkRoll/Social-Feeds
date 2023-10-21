@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --success: 120 100% 29.8%;
+    --success-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142.1 76.2% 36.3%;
+    --radius: 0.75rem;
+  }
+ 
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --success: 120 100% 29.8%;
+    --success-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.4 71.8% 29.2%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+/* For Arial */
+body[data-font="Arial"] {
+  font-family: Arial, sans-serif;
+}
+
+/* For Verdana */
+body[data-font="Verdana"] {
+  font-family: Verdana, sans-serif;
+}
+
+/* For Times New Roman */
+body[data-font="Times New Roman"] {
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* For Georgia */
+body[data-font="Georgia"] {
+  font-family: Georgia, serif;
+}
+
+/* For Courier New */
+body[data-font="Courier New"] {
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* For Comic Sans MS */
+body[data-font="Comic Sans MS"] {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+/* For Tahoma */
+body[data-font="Tahoma"] {
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+/* For Lucida Sans Unicode */
+body[data-font="Lucida Sans Unicode"] {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+/* For Impact */
+body[data-font="Impact"] {
+  font-family: Impact, Charcoal, sans-serif;
+}
+
+/* For Trebuchet MS */
+body[data-font="Trebuchet MS"] {
+  font-family: "Trebuchet MS", "Lucida Grande", sans-serif;
+}
+
+/* For Palatino Linotype */
+body[data-font="Palatino Linotype"] {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+/* For Sylfaen */
+body[data-font="Sylfaen"] {
+  font-family: Sylfaen, serif;
+}
+
+/* For Consolas */
+body[data-font="Consolas"] {
+  font-family: Consolas, monaco, monospace;
+}
+
+/* For Franklin Gothic Medium */
+body[data-font="Franklin Gothic Medium"] {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+/* For Gill Sans */
+body[data-font="Gill Sans"] {
+  font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS", sans-serif;
+}
+
+/* For Century Gothic */
+body[data-font="Century Gothic"] {
+  font-family: "Century Gothic", sans-serif;
+}
+
+/* For Lucida Console */
+body[data-font="Lucida Console"] {
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
+/* For Bookman Old Style */
+body[data-font="Bookman Old Style"] {
+  font-family: "Bookman Old Style", serif;
+}
+
+/* For Garamond */
+body[data-font="Garamond"] {
+  font-family: Garamond, serif;
+}
+
+/* For MS Sans Serif */
+body[data-font="MS Sans Serif"] {
+  font-family: "MS Sans Serif", Geneva, sans-serif;
+}
+
+/* For MS Serif */
+body[data-font="MS Serif"] {
+  font-family: "MS Serif", "New York", serif;
+}
+
+/* For Symbol */
+body[data-font="Symbol"] {
+  font-family: Symbol, serif;
+}
+
+/* For Webdings */
+body[data-font="Webdings"] {
+  font-family: Webdings, serif;
+}
+
+/* For Wingdings */
+body[data-font="Wingdings"] {
+  font-family: Wingdings, "Zapf Dingbats", serif;
+}
+
+/* For Book Antiqua */
+body[data-font="Book Antiqua"] {
+  font-family: "Book Antiqua", Palatino, "Palatino Linotype", serif;
+}

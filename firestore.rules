@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      // Allow read for everyone
+      allow read: if true;
+      
+      // Allow write only if the userId matches the Ethereum address.
+      allow write: if request.resource.data.profile.userAddress == userId;
+    }
+  }
+}
