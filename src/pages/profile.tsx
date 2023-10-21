@@ -12,10 +12,13 @@ import {
   TabsContent,
 } from "../../components/ui/tabs";
 import { Skeleton } from "../../components/ui/skeleton";
+import Subscription from "../../components/Subscription";
+import Link from "next/link";
 
 const Profile: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<any>({});
+  const isProUser = userData?.proUser;
 
   const address = useAddress();
   const router = useRouter();
@@ -74,16 +77,46 @@ const Profile: React.FC = () => {
 
         <div className="w-3/4 p-4 bg-popover rounded-lg">
           <TabsContent value="settings">
-            <Settings userData={userData} />
+            {isProUser ? (
+              <Settings userData={userData} />
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full">
+                <h2 className="text-2xl font-semibold mb-4">Settings</h2>
+                <p className="text-lg text-gray-600 text-center">
+                  Please subscribe to access this section.
+                </p>
+                <Subscription />
+              </div>
+            )}
           </TabsContent>
           <TabsContent value="interface">
-            <InterfaceSettings
-              userData={userData}
-              interfaceData={userData.interfaceData}
-            />
+            {isProUser ? (
+              <InterfaceSettings
+                userData={userData}
+                interfaceData={userData.interfaceData}
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full">
+                <h2 className="text-2xl font-semibold mb-4">
+                  Interface Settings
+                </h2>
+                <p className="text-lg text-gray-600 text-center">
+                  Please subscribe to access this section.
+                </p>
+                <Subscription />
+              </div>
+            )}
           </TabsContent>
           <TabsContent value="subscription">
-            <div className="text-foreground">Coming soon!</div>
+            <div className="flex flex-col items-center justify-center h-full">
+              <h2 className="text-2xl font-semibold mb-4">
+                Subscription Settings
+              </h2>
+              <p className="text-lg text-gray-600 text-center">
+                Here you can subscribe to the monthly subscription.
+              </p>
+              <Subscription />
+            </div>
           </TabsContent>
         </div>
       </Tabs>

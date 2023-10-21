@@ -26,6 +26,7 @@ const Navbar: React.FC = () => {
 
           const newUser = {
             verifiedUser: false,
+            proUser: false,
             profile: {
               userAddress: address,
               location: "",

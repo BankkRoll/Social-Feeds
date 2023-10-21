@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import {
   DocumentData,
   collection,
@@ -10,6 +9,7 @@ import {
 import { db } from "../../firebaseClient";
 import { Tweet } from "react-tweet";
 import LoadingScreen from "../../components/ui/loading";
+import { useRouter } from "next/router";
 
 interface TweetType {
   id: string;
