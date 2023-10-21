@@ -12,11 +12,6 @@ import {
   TabsContent,
 } from "../../components/ui/tabs";
 import { Skeleton } from "../../components/ui/skeleton";
-import { UserInterface } from "../../type";
-
-interface InterfaceProps {
-  interfaceData: UserInterface;
-}
 
 const Profile: React.FC = () => {
   const [loading, setLoading] = useState(true);
