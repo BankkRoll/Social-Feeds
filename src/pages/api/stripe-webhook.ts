@@ -1,3 +1,4 @@
+// src/pages/api/stripe-webhook.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { doc, setDoc } from "firebase/firestore";

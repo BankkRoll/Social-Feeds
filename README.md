@@ -1,10 +1,9 @@
-# SocialFeeds
+# SocialFeed
 
 > 🚧 **Status: In Progress**
 
-## View it in action https://socialfeeds.vercel.app/Bankk
-
 ## To-Do
+- [ ] Fix the api webhook to setDoc proUser true
 - [ ] Fix SVGs to allow styling for color
 - [ ] Adjust SVGs to be brighter, matching the platform color on social cards
 - [ ] Add more caching to store user info and prevent multiple calls
@@ -14,7 +13,7 @@
 
 ## Overview
 
-`SocialFeeds` is a simple alternative to Linktree, built using ThirdWeb and Firebase. It allows you to create a custom profile where you can link all your social media accounts, websites, and more in one place.
+`SocialFeed` is a simple alternative to Linktree, built using ThirdWeb and Firebase. It allows you to create a custom profile where you can link all your social media accounts, websites, and more in one place.
 
 ## Features
 
