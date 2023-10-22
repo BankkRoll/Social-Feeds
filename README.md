@@ -3,8 +3,8 @@
 > 🚧 **Status: In Progress**
 
 ## To-Do
-- [ ] Fix the verfied svg no showing in production
-- [ ] Fix the loading screen not showing in production
+- [x] Fix the verfied svg no showing in production
+- [x] Fix the loading screen not showing in production
 - [ ] Fix the api webhook to setDoc proUser true
 - [ ] Fix SVGs to allow styling for color
 - [ ] Adjust SVGs to be brighter, matching the platform color on social cards
