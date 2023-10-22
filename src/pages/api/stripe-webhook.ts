@@ -19,7 +19,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const rawBody = await buffer(req);
+    const rawBody = await buffer(req, { encoding: 'utf-8' });
 
     const sig = req.headers["stripe-signature"]!;
 
@@ -35,7 +35,6 @@ export default async function handler(
       return res.status(400).send(`Webhook Error: ${(err as Error).message}`);
     }
 
-    // Handle the event types
     const subscription = event.data.object as Stripe.Subscription;
     const userAddress = subscription.metadata.userAddress;
     const userRef = doc(db, "users", userAddress);
