@@ -1,4 +1,3 @@
-// src/pages/api/checkout_sessions.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 

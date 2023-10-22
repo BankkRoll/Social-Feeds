@@ -23,9 +23,6 @@ const UserProfile: React.FC = () => {
   const { slug } = router.query;
   const [showLoadingScreen, setShowLoadingScreen] = useState(true);
 
-  const CACHE_KEY = `${slug}Profile`;
-  const CACHE_DURATION = 1000 * 60 * 60 * 2;
-
   useEffect(() => {
     if (interfaceData?.general?.font) {
       document.body.setAttribute("data-font", interfaceData?.general?.font);
@@ -35,19 +32,6 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       if (slug && db) {
-        const cachedData = localStorage.getItem(`${CACHE_KEY}_${slug}`);
-
-        if (cachedData) {
-          const { data, timestamp } = JSON.parse(cachedData);
-          const currentTime = new Date().getTime();
-
-          if (currentTime - timestamp < CACHE_DURATION) {
-            setUserData(data);
-            setInterfaceData(data.interface);
-            setShowLoadingScreen(false);
-            return;
-          }
-        }
         const usersRef = collection(db, "users");
         const q = query(usersRef, where("profile.userName", "==", slug));
         const querySnapshot = await getDocs(q);
@@ -57,14 +41,6 @@ const UserProfile: React.FC = () => {
             const data = doc.data();
             setUserData(data);
             setInterfaceData(data.interface);
-
-            localStorage.setItem(
-              `${CACHE_KEY}_${slug}`,
-              JSON.stringify({
-                data,
-                timestamp: new Date().getTime(),
-              })
-            );
           });
           setTimeout(() => {
             setShowLoadingScreen(false);
