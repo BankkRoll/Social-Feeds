@@ -25,7 +25,7 @@ export default function Subscription() {
     }
     if (query.get("canceled")) {
       toast({
-        variant: "destuctive",
+        variant: "destructive",
         title:
           "Order canceled -- continue to shop around and checkout when you’re ready.",
       });
