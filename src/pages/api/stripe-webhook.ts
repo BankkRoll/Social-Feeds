@@ -2,27 +2,26 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebaseClient";
+import { buffer } from "micro";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16",
 });
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET!;
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    const sig = req.headers["stripe-signature"]!;
+    const reqBuffer = await buffer(req);
+    const payload = reqBuffer.toString();
+    const signature = req.headers["stripe-signature"]!;
+
     let event: Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(
-        req.body,
-        sig,
-        process.env.STRIPE_WEBHOOK_SECRET!
-      );
-    } catch (err) {
-      return res.status(400).send(`Webhook Error: ${(err as Error).message}`);
+      event = stripe.webhooks.constructEvent(payload, signature, webhookSecret);
+    } catch (err: any) {
+      return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
     const subscription = event.data.object as Stripe.Subscription;
@@ -36,31 +35,31 @@ export default async function handler(
           await setDoc(userRef, { proUser: true }, { merge: true });
         }
         break;
-
       case "customer.subscription.deleted":
-        if (userAddress) {
-          await setDoc(userRef, { proUser: false }, { merge: true });
-        }
-        break;
-
       case "customer.subscription.paused":
         if (userAddress) {
           await setDoc(userRef, { proUser: false }, { merge: true });
         }
         break;
-
       case "customer.subscription.resumed":
         if (userAddress) {
           await setDoc(userRef, { proUser: true }, { merge: true });
         }
         break;
-
       default:
+        console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
     }
 
-    res.json({ received: true });
+    res.status(200).json({ received: true });
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: false,
+    externalResolver: true,
+  },
+};
