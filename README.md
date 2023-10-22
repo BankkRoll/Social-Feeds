@@ -1,4 +1,4 @@
-# SocialFeed
+# SocialFeeds
 
 > 🚧 **Status: In Progress**
 
@@ -13,7 +13,7 @@
 
 ## Overview
 
-`SocialFeed` is a simple alternative to Linktree, built using ThirdWeb and Firebase. It allows you to create a custom profile where you can link all your social media accounts, websites, and more in one place.
+`SocialFeeds` is a simple alternative to Linktree, built using ThirdWeb and Firebase. It allows you to create a custom profile where you can link all your social media accounts, websites, and more in one place.
 
 ## Features
 
