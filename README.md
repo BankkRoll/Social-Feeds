@@ -1,12 +1,13 @@
 # SocialFeeds
 
 > 🚧 **Status: In Progress**
+> 🚧 **NOT READY FOR USE**
 
 ## To-Do
 - [x] Fix the verfied svg no showing in production
 - [x] Fix the loading screen not showing in production
 - [ ] Fix the api webhook to setDoc proUser true
-- [ ] Fix SVGs to allow styling for color
+- [ ] Fix footer SVGs to allow styling for textcolor
 - [ ] Adjust SVGs to be brighter, matching the platform color on social cards
 - [ ] Add more caching to store user info and prevent multiple calls
 - [ ] Add analytics dashboard for user interactions
