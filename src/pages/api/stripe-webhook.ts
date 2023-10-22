@@ -24,35 +24,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    const subscription = event.data.object as Stripe.Subscription;
-    const userAddress = subscription.metadata.userAddress;
-
     const userRef = collection(db, "users");
-    const snapshot = await getDocs(query(userRef, where("userAddress", "==", userAddress)));
 
     switch (event.type) {
       case "customer.subscription.created":
       case "customer.subscription.updated":
-        if (!snapshot.empty) {
-          const docRef = snapshot.docs[0].ref;
-          await updateDoc(docRef, { proUser: true });
-        }
-        break;
       case "customer.subscription.deleted":
       case "customer.subscription.paused":
-        if (!snapshot.empty) {
-          const docRef = snapshot.docs[0].ref;
-          await updateDoc(docRef, { proUser: false });
-        }
-        break;
       case "customer.subscription.resumed":
+        const subscription = event.data.object as Stripe.Subscription;
+        const userAddress = subscription.metadata.userAddress;
+        const snapshot = await getDocs(query(userRef, where("userAddress", "==", userAddress)));
+        
         if (!snapshot.empty) {
           const docRef = snapshot.docs[0].ref;
-          await updateDoc(docRef, { proUser: true });
+          const proStatus = ["customer.subscription.created", "customer.subscription.updated", "customer.subscription.resumed"].includes(event.type);
+          await updateDoc(docRef, { proUser: proStatus });
         }
         break;
-      default:
-        console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
     }
 
     res.status(200).json({ received: true });
