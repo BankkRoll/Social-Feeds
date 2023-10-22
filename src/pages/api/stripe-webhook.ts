@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, collection, where, getDocs, addDoc, updateDoc, query } from "firebase/firestore";
 import { db } from "../../../firebaseClient";
 import { buffer } from "micro";
 
@@ -26,24 +26,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const subscription = event.data.object as Stripe.Subscription;
     const userAddress = subscription.metadata.userAddress;
-    const userRef = doc(db, "users", userAddress);
+
+    const userRef = collection(db, "users");
+    const snapshot = await getDocs(query(userRef, where("userAddress", "==", userAddress)));
 
     switch (event.type) {
       case "customer.subscription.created":
       case "customer.subscription.updated":
-        if (userAddress) {
-          await setDoc(userRef, { proUser: true }, { merge: true });
+        if (!snapshot.empty) {
+          const docRef = snapshot.docs[0].ref;
+          await updateDoc(docRef, { proUser: true });
         }
         break;
       case "customer.subscription.deleted":
       case "customer.subscription.paused":
-        if (userAddress) {
-          await setDoc(userRef, { proUser: false }, { merge: true });
+        if (!snapshot.empty) {
+          const docRef = snapshot.docs[0].ref;
+          await updateDoc(docRef, { proUser: false });
         }
         break;
       case "customer.subscription.resumed":
-        if (userAddress) {
-          await setDoc(userRef, { proUser: true }, { merge: true });
+        if (!snapshot.empty) {
+          const docRef = snapshot.docs[0].ref;
+          await updateDoc(docRef, { proUser: true });
         }
         break;
       default:
