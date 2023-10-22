@@ -1,7 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { buffer } from "micro";
 import Stripe from "stripe";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebaseClient";
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16",
@@ -12,12 +19,15 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
+    const rawBody = await buffer(req);
+
     const sig = req.headers["stripe-signature"]!;
+
     let event: Stripe.Event;
 
     try {
       event = stripe.webhooks.constructEvent(
-        req.body,
+        rawBody.toString(),
         sig,
         process.env.STRIPE_WEBHOOK_SECRET!
       );
@@ -25,6 +35,7 @@ export default async function handler(
       return res.status(400).send(`Webhook Error: ${(err as Error).message}`);
     }
 
+    // Handle the event types
     const subscription = event.data.object as Stripe.Subscription;
     const userAddress = subscription.metadata.userAddress;
     const userRef = doc(db, "users", userAddress);
@@ -36,26 +47,23 @@ export default async function handler(
           await setDoc(userRef, { proUser: true }, { merge: true });
         }
         break;
-
       case "customer.subscription.deleted":
         if (userAddress) {
           await setDoc(userRef, { proUser: false }, { merge: true });
         }
         break;
-
       case "customer.subscription.paused":
         if (userAddress) {
           await setDoc(userRef, { proUser: false }, { merge: true });
         }
         break;
-
       case "customer.subscription.resumed":
         if (userAddress) {
           await setDoc(userRef, { proUser: true }, { merge: true });
         }
         break;
-
       default:
+        // Unhandled event type
     }
 
     res.json({ received: true });
