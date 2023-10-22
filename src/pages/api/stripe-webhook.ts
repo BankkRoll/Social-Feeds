@@ -1,8 +1,23 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { buffer } from "micro";
 import Stripe from "stripe";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebaseClient";
+
+const buffer = (req: NextApiRequest) => {
+  return new Promise<Buffer>((resolve, reject) => {
+    const chunks: Buffer[] = [];
+
+    req.on('data', (chunk: Buffer) => {
+      chunks.push(chunk);
+    });
+
+    req.on('end', () => {
+      resolve(Buffer.concat(chunks));
+    });
+
+    req.on('error', reject);
+  });
+};
 
 export const config = {
   api: {
@@ -19,7 +34,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const rawBody = await buffer(req, { encoding: 'utf-8' });
+    const rawBody = await buffer(req);
 
     const sig = req.headers["stripe-signature"]!;
 
