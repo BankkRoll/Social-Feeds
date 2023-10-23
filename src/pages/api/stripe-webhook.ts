@@ -19,7 +19,7 @@ export async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const buf = await buffer(req);
+    const buf = await buffer(req, { encoding: 'binary' });
     const sig = req.headers["stripe-signature"]!;
     let event: Stripe.Event;
 
