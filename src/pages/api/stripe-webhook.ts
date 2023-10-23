@@ -1,3 +1,4 @@
+import { buffer } from 'micro';
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { doc, setDoc } from "firebase/firestore";
@@ -18,12 +19,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
+    const buf = await buffer(req);
     const sig = req.headers["stripe-signature"]!;
     let event: Stripe.Event;
 
     try {
       event = stripe.webhooks.constructEvent(
-        req.body,
+        buf.toString(),
         sig,
         process.env.STRIPE_WEBHOOK_SECRET!
       );
@@ -70,3 +72,4 @@ export default async function handler(
     res.status(405).end("Method Not Allowed");
   }
 }
+
