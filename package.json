@@ -44,6 +44,7 @@
     "@types/react": "^18",
     "@types/stripe": "^8.0.417",
     "@types/ua-parser-js": "^0.7.38",
+    "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "13.5.5",
     "tailwindcss": "^3",
