@@ -1,5 +1,23 @@
 # SocialFeeds
 
+<p align="center">
+  <img src="https://github.com/BankkRoll/Social-Feeds/assets/106103625/170e1d5d-f202-485e-886f-7c0387c3feb6" alt="Custom Page Preview"/>
+</p>
+
+<details>
+  <summary>Additional Images</summary>
+  
+  - **Settings**
+    ![Settings](https://github.com/BankkRoll/Social-Feeds/assets/106103625/e43dce06-5fd4-45e2-9b38-505ae22ac4e2)
+
+  - **Interface**
+    ![Interface](https://github.com/BankkRoll/Social-Feeds/assets/106103625/b250ff62-a7fa-443d-bac5-45a0df96e1b0)
+
+  - **Analytics**
+    ![Analytics](https://github.com/BankkRoll/Social-Feeds/assets/106103625/0851682a-bb51-4897-956d-49031ccad6f2)
+
+</details>
+
 > 🚧 **Status: In Progress**
 
 ## To-Do
@@ -28,6 +46,3 @@
 
 To get started, simply sign up and follow the prompts to create your profile and customize your interface. Once you're happy with how it looks, go to settings and click on 'Save' to make it live. Share your unique link to connect with your audience!
 
-## Note
-
-This project is still under development.
