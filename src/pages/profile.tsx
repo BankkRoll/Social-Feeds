@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAddress } from "@thirdweb-dev/react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseClient";
 import Settings from "../../components/Settings";
 import InterfaceSettings from "../../components/Interface";
@@ -13,7 +13,6 @@ import {
 } from "../../components/ui/tabs";
 import { Skeleton } from "../../components/ui/skeleton";
 import Subscription from "../../components/Subscription";
-import Link from "next/link";
 
 const Profile: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -22,6 +21,7 @@ const Profile: React.FC = () => {
 
   const address = useAddress();
   const router = useRouter();
+  const { success } = router.query;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,8 +39,35 @@ const Profile: React.FC = () => {
       }
     };
 
+    const verifyPayment = async () => {
+      if (address && success) {
+        const userRef = doc(db, "users", address);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          const sessionId = userData.stripeSessionId;
+
+          const response = await fetch('/api/getSession', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId }),
+          });
+
+          if (response.ok) {
+            const session = await response.json();
+
+            if (session.payment_status === 'paid') {
+              await setDoc(userRef, { proUser: true }, { merge: true });
+            }
+          }
+        }
+      }
+    };
+
     fetchUserData();
-  }, [address, db, router]);
+    verifyPayment();
+  }, [address, db, router, success]);
 
   if (loading) {
     return <Skeleton className="w-full h-full" />;

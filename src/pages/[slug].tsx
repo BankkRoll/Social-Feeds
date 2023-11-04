@@ -124,7 +124,7 @@ const UserProfile: React.FC = () => {
           </div>
         </div>
 
-        <div className="max-w-2xl grid grid-cols-2 px-4 gap-2  md:px-0 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="max-w-2xl grid grid-cols-2 px-4 gap-2 md:px-0 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {Object.keys(userData?.socials || {}).map((platform) => {
             const isActive = userData?.socials[platform]?.active;
             const svgPath = `/svg/${platform}.svg`;
@@ -156,7 +156,9 @@ const UserProfile: React.FC = () => {
                     alt={`${platform} Thumbnail`}
                   />
                   <div className="absolute top-2 right-2 p-2">
-                    <img className="w-10 h-10" src={svgPath} alt={platform} />
+                    <div className="bg-white rounded-full p-1">
+                      <img className="w-8 h-8" src={svgPath} alt={platform} />
+                    </div>
                   </div>
                   <div className="absolute bottom-0 left-0 p-4 bg-black bg-opacity-60">
                     <h3

@@ -40,8 +40,8 @@ const PricePlan: React.FC = () => {
                 </h1>
               </GlowCardHeader>
               <GlowCardContent>
-                <p className="text-lg text-gray-600 mb-4">1 Day Free Trial</p>
-                <p className="text-lg text-gray-600">$3 per month after</p>
+                <h2 className="text-2xl font-semibold mb-4">Subscribe to SocialFeeds</h2>
+                <p className="text-lg text-gray-600 mb-4">$2.00 Monthly SocialFeeds Membership.</p>
               </GlowCardContent>
               <GlowCardFooter className="flex justify-center">
                 <form action="/api/checkout_sessions" method="POST">

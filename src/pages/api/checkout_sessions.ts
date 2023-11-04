@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
+import { setDoc, doc } from "firebase/firestore";
+import { db } from "../../../firebaseClient";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16",
@@ -22,15 +24,20 @@ export default async function handler(
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
-            price: "price_1O3naCKa2Ksv1i1uJz8KnkLQ",
+            price: "price_1O8nlKKa2Ksv1i1ufcPf1wt2",
             quantity: 1,
           },
         ],
         mode: "subscription",
-        success_url: `${origin}/?success=true`,
+        success_url: `${origin}/profile?success=true`,
         cancel_url: `${origin}/?canceled=true`,
         metadata: { userAddress },
       });
+
+      if (session.id && userAddress) {
+        const userRef = doc(db, "users", userAddress);
+        await setDoc(userRef, { stripeSessionId: session.id }, { merge: true });
+      }
 
       if (session.url) {
         res.redirect(303, session.url);
