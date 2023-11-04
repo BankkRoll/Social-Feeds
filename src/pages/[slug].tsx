@@ -49,7 +49,6 @@ const UserProfile: React.FC = () => {
               setShowLoadingScreen(false);
             }, 2500);
 
-            // Log the page view
             const userId = documentSnapshot.id;
             const userViewsRef = collection(db, "users", userId, "views");
             await addDoc(userViewsRef, {
@@ -59,7 +58,6 @@ const UserProfile: React.FC = () => {
               slug: slug,
             });
 
-            // Optionally, you can increment a counter in the user document as well
             const userDoc = doc(db, "users", userId);
             await updateDoc(userDoc, {
               totalViews: (data.totalViews || 0) + 1,

@@ -37,7 +37,6 @@ const Profile: React.FC = () => {
           setUserData(data);
           setLoading(false);
 
-          // Calculate the slug from the user's userName
           const userName = data?.profile?.userName;
           const generatedSlug = userName?.toLowerCase().replace(/ /g, "-");
           setSlug(generatedSlug);

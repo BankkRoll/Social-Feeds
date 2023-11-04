@@ -39,10 +39,8 @@ export default function Home() {
       allProfiles.sort(() => Math.random() - 0.5);
       const slicedProfiles = allProfiles.slice(0, 6);
 
-      // Update state
       setRandomProfiles(slicedProfiles);
 
-      // Cache data
       localStorage.setItem(
         CACHE_KEY,
         JSON.stringify({

@@ -47,6 +47,48 @@ const Analytics: React.FC = () => {
 
   const address = useAddress();
 
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      let formattedLabel = label;
+      let value = data.value || data.count;
+  
+      if (dayjs(label).isValid()) {
+        const date = dayjs(label).toDate();
+        switch (timeframe) {
+          case "1d":
+            formattedLabel = new Intl.DateTimeFormat("default", { hour: "2-digit", minute: "2-digit" }).format(date);
+            break;
+          case "1w":
+            formattedLabel = new Intl.DateTimeFormat("default", { weekday: "short" }).format(date);
+            break;
+          case "1m":
+            formattedLabel = new Intl.DateTimeFormat("default", { month: "short", day: "numeric" }).format(date);
+            break;
+          default:
+            formattedLabel = new Intl.DateTimeFormat("default", { year: "numeric", month: "short", day: "numeric" }).format(date);
+            break;
+        }
+      }
+  
+      if (data.name && colorsForDevices[data.name]) {
+        formattedLabel = data.name;
+      }
+  
+      if (data.name && !colorsForDevices[data.name]) {
+        formattedLabel = `Referrer: ${data.name}`;
+      }
+  
+      return (
+        <div className="custom-tooltip p-2 bg-gray-800 text-white rounded-md">
+          <p className="label">{`${formattedLabel} : ${value}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+  
+
   useEffect(() => {
     const fetchAnalyticsData = async () => {
       if (!address) {
@@ -116,15 +158,23 @@ const Analytics: React.FC = () => {
   ).map(([name, value]) => ({ name, value, fill: getRandomColor() }));
 
   const timeSeriesData = filteredData.reduce((acc, view) => {
-    const date = dayjs(view.timestamp).format("YYYY-MM-DD");
-    acc[date] = (acc[date] || 0) + 1;
+    const date = dayjs(view.timestamp);
+    const format = timeframe === "1d" ? "YYYY-MM-DD HH:00" : "YYYY-MM-DD";
+    const formattedDate = date.format(format);
+    acc[formattedDate] = (acc[formattedDate] || 0) + 1;
     return acc;
   }, {} as { [key: string]: number });
 
-  const lineChartData = Object.entries(timeSeriesData).map(([date, count]) => ({
-    date,
-    count,
-  }));
+  if (timeframe === "1d") {
+    for (let i = 0; i <= 24; i++) {
+      const date = dayjs().subtract(i, "hour").format("YYYY-MM-DD HH:00");
+      timeSeriesData[date] = timeSeriesData[date] || 0;
+    }
+  }
+
+  const lineChartData = Object.entries(timeSeriesData)
+    .map(([date, count]) => ({ date, count }))
+    .sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix());
 
   return (
     <div className="analytics-container p-8">
@@ -155,21 +205,42 @@ const Analytics: React.FC = () => {
             <XAxis
               dataKey="date"
               tickFormatter={(str) => {
-                const date = dayjs(str);
+                const date = new Date(str);
+                const formatterOptions = {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  timeZoneName: "short",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                };
                 switch (timeframe) {
                   case "1d":
-                    return date.format("HH:mm");
+                    return new Intl.DateTimeFormat("default", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    }).format(date);
                   case "1w":
-                    return date.format("ddd");
+                    return new Intl.DateTimeFormat("default", {
+                      weekday: "short",
+                    }).format(date);
                   case "1m":
-                    return date.format("MMM D");
+                    return new Intl.DateTimeFormat("default", {
+                      month: "short",
+                      day: "numeric",
+                    }).format(date);
                   default:
-                    return date.format("YYYY-MM-DD");
+                    return new Intl.DateTimeFormat("default", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    }).format(date);
                 }
               }}
             />
+
             <YAxis />
-            <Tooltip />
+            <Tooltip content={<CustomTooltip />} />
             <Line
               type="monotone"
               dataKey="count"
@@ -199,7 +270,7 @@ const Analytics: React.FC = () => {
                     outerRadius={100}
                     label
                   />
-                  <Tooltip />
+                  <Tooltip content={<CustomTooltip />} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -226,7 +297,7 @@ const Analytics: React.FC = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="value" fill="#8884d8" />
               </BarChart>
             </ResponsiveContainer>
