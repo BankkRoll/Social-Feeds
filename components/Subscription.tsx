@@ -14,6 +14,7 @@ import { db } from "../firebaseClient";
 export default function Subscription() {
   const address = useAddress();
   const [proUser, setProUser] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
@@ -35,11 +36,13 @@ export default function Subscription() {
   useEffect(() => {
     if (address) {
       const fetchProUserStatus = async () => {
+        setIsLoading(true);
         const userRef = doc(db, "users", address);
         const userDoc = await getDoc(userRef);
         if (userDoc.exists()) {
           setProUser(userDoc.data()?.proUser);
         }
+        setIsLoading(false);
       };
 
       fetchProUserStatus();
@@ -54,12 +57,15 @@ export default function Subscription() {
     <div className="subscription-container mx-auto p-8 flex justify-center">
       <GlowCard className="max-w-md">
         <GlowCardHeader>
-          <h1 className="text-3xl font-semibold tracking-wider">
+          <h1 className="text-3xl font-semibold tracking-wider text-center">
             Subscription
           </h1>
         </GlowCardHeader>
-        <GlowCardContent>
-          {proUser ? (
+
+        <GlowCardContent className="flex flex-col items-center justify-center">
+          {isLoading ? (
+            <p className="text-lg text-gray-600 mb-4">Loading...</p>
+          ) : proUser ? (
             <>
               <p className="text-lg text-gray-600 mb-4">
                 Your account is currently active.
@@ -87,8 +93,8 @@ export default function Subscription() {
             </>
           )}
         </GlowCardContent>
-        <GlowCardFooter className="flex justify-center">
-          {!proUser && (
+        <GlowCardFooter className="flex justify-center items-center">
+          {!isLoading && !proUser && (
             <form action="/api/checkout_sessions" method="POST">
               <input type="hidden" name="userAddress" value={address} />
               <Button

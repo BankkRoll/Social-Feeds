@@ -13,20 +13,34 @@ import { db } from "../firebaseClient";
 const PricePlan: React.FC = () => {
   const address = useAddress();
   const [proUser, setProUser] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (address) {
-      const fetchProUserStatus = async () => {
-        const userRef = doc(db, "users", address);
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-          setProUser(userDoc.data()?.proUser);
-        }
-      };
+    const fetchProUserStatus = async () => {
+      if (!address) {
+        return;
+      }
+      setIsLoading(true);
+      const userRef = doc(db, "users", address);
+      const userDoc = await getDoc(userRef);
+      setProUser(userDoc.data()?.proUser || null);
+      setIsLoading(false);
+    };
 
+    if (address) {
       fetchProUserStatus();
+    } else {
+      setIsLoading(false);
     }
   }, [address]);
+
+  if (isLoading) {
+    return <p className="text-lg text-gray-600 mb-4">Loading...</p>;
+  }
+
+  if (proUser) {
+    return null;
+  }
 
   return (
     <div className="bg-background text-foreground flex flex-col items-center justify-center my-10">
@@ -35,7 +49,7 @@ const PricePlan: React.FC = () => {
           <form action="/api/checkout_sessions" method="POST">
             <GlowCard className="max-w-md">
               <GlowCardHeader>
-                <h1 className="text-3xl font-semibold tracking-wider">
+                <h1 className="text-3xl font-semibold tracking-wider text-center">
                   Subscription
                 </h1>
               </GlowCardHeader>
@@ -48,16 +62,14 @@ const PricePlan: React.FC = () => {
                 </p>
               </GlowCardContent>
               <GlowCardFooter className="flex justify-center">
-                <form action="/api/checkout_sessions" method="POST">
-                  <input type="hidden" name="userAddress" value={address} />
-                  <Button
-                    type="submit"
-                    className="checkout-button"
-                    disabled={!address}
-                  >
-                    Sign Up!
-                  </Button>
-                </form>
+                <input type="hidden" name="userAddress" value={address} />
+                <Button
+                  type="submit"
+                  className="checkout-button"
+                  disabled={!address}
+                >
+                  Sign Up!
+                </Button>
               </GlowCardFooter>
             </GlowCard>
           </form>
