@@ -73,12 +73,16 @@ export default function Subscription() {
             </>
           ) : (
             <>
-              <h2 className="text-2xl font-semibold mb-4">Subscribe to SocialFeeds</h2>
-              <p className="text-lg text-gray-600 mb-4">$2.00 Monthly SocialFeeds Membership.</p>
-              <img 
-                src="https://stripe-camo.global.ssl.fastly.net/9e510da673e212fe011175cfa53885990a5191baae1c9eaf22b315f1ac7db873/68747470733a2f2f66696c65732e7374726970652e636f6d2f6c696e6b732f4d44423859574e6a644638785445707459334e4c59544a4c633359786154463166475a7358327870646d56664f455a7557564a58516d745763334e74526c644859574a46567a56314e33517a30304168584461546835" 
-                alt="Subscription Image" 
-                className="w-full h-64 object-cover mb-4" 
+              <h2 className="text-2xl font-semibold mb-4">
+                Subscribe to SocialFeeds
+              </h2>
+              <p className="text-lg text-gray-600 mb-4">
+                $2.00 Monthly SocialFeeds Membership.
+              </p>
+              <img
+                src="https://stripe-camo.global.ssl.fastly.net/9e510da673e212fe011175cfa53885990a5191baae1c9eaf22b315f1ac7db873/68747470733a2f2f66696c65732e7374726970652e636f6d2f6c696e6b732f4d44423859574e6a644638785445707459334e4c59544a4c633359786154463166475a7358327870646d56664f455a7557564a58516d745763334e74526c644859574a46567a56314e33517a30304168584461546835"
+                alt="Subscription Image"
+                className="w-full h-64 object-cover mb-4"
               />
             </>
           )}

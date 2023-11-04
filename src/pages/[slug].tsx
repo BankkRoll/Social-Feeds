@@ -5,6 +5,9 @@ import {
   query,
   where,
   getDocs,
+  addDoc,
+  updateDoc,
+  doc,
 } from "firebase/firestore";
 import { db } from "../../firebaseClient";
 import { Tweet } from "react-tweet";
@@ -37,14 +40,31 @@ const UserProfile: React.FC = () => {
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
-          querySnapshot.forEach((doc) => {
-            const data = doc.data();
+          querySnapshot.forEach(async (documentSnapshot) => {
+            const data = documentSnapshot.data();
             setUserData(data);
             setInterfaceData(data.interface);
+
+            setTimeout(() => {
+              setShowLoadingScreen(false);
+            }, 2500);
+
+            // Log the page view
+            const userId = documentSnapshot.id;
+            const userViewsRef = collection(db, "users", userId, "views");
+            await addDoc(userViewsRef, {
+              timestamp: new Date().toISOString(),
+              platform: navigator.userAgent,
+              referrer: document.referrer,
+              slug: slug,
+            });
+
+            // Optionally, you can increment a counter in the user document as well
+            const userDoc = doc(db, "users", userId);
+            await updateDoc(userDoc, {
+              totalViews: (data.totalViews || 0) + 1,
+            });
           });
-          setTimeout(() => {
-            setShowLoadingScreen(false);
-          }, 2500);
         } else {
           router.push("/");
         }

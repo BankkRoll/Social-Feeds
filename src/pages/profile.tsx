@@ -13,6 +13,7 @@ import {
 } from "../../components/ui/tabs";
 import { Skeleton } from "../../components/ui/skeleton";
 import Subscription from "../../components/Subscription";
+import Analytics from "../../components/Analytics";
 
 const Profile: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ const Profile: React.FC = () => {
 
   const address = useAddress();
   const router = useRouter();
+  const [slug, setSlug] = useState<string | null>(null);
   const { success } = router.query;
 
   useEffect(() => {
@@ -31,8 +33,14 @@ const Profile: React.FC = () => {
         const userSnap = await getDoc(userRef);
 
         if (userSnap.exists()) {
-          setUserData(userSnap.data() || {});
+          const data = userSnap.data();
+          setUserData(data);
           setLoading(false);
+
+          // Calculate the slug from the user's userName
+          const userName = data?.profile?.userName;
+          const generatedSlug = userName?.toLowerCase().replace(/ /g, "-");
+          setSlug(generatedSlug);
         } else {
           router.push("/");
         }
@@ -48,16 +56,16 @@ const Profile: React.FC = () => {
           const userData = userSnap.data();
           const sessionId = userData.stripeSessionId;
 
-          const response = await fetch('/api/getSession', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+          const response = await fetch("/api/getSession", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ sessionId }),
           });
 
           if (response.ok) {
             const session = await response.json();
 
-            if (session.payment_status === 'paid') {
+            if (session.payment_status === "paid") {
               await setDoc(userRef, { proUser: true }, { merge: true });
             }
           }
@@ -98,6 +106,12 @@ const Profile: React.FC = () => {
               className="p-2 rounded-lg cursor-pointer hover:bg-background"
             >
               Subscription
+            </TabsTrigger>
+            <TabsTrigger
+              value="analytics"
+              className="p-2 rounded-lg cursor-pointer hover:bg-background"
+            >
+              Analytics
             </TabsTrigger>
           </TabsList>
         </div>
@@ -144,6 +158,19 @@ const Profile: React.FC = () => {
               </p>
               <Subscription />
             </div>
+          </TabsContent>
+          <TabsContent value="analytics">
+            {isProUser ? (
+              <Analytics />
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full">
+                <h2 className="text-2xl font-semibold mb-4">Analytics</h2>
+                <p className="text-lg text-gray-600 text-center">
+                  Please subscribe to access this section.
+                </p>
+                <Subscription />
+              </div>
+            )}
           </TabsContent>
         </div>
       </Tabs>

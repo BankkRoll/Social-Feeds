@@ -1,12 +1,23 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // Users collection rules
     match /users/{userId} {
       // Allow read for everyone
       allow read: if true;
       
       // Allow write only if the userId matches the Ethereum address.
       allow write: if request.resource.data.profile.userAddress == userId;
+
+      // Views subcollection rules
+      match /views/{viewId} {
+        // Allow read for everyone
+        allow read: if true;
+        
+        // Allow write for everyone, but only certain fields
+        allow create: if request.resource.data.keys().hasOnly(['timestamp', 'platform', 'referrer', 'slug']);
+      }
     }
   }
 }

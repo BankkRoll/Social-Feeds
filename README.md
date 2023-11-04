@@ -2,16 +2,14 @@
 
 > 🚧 **Status: In Progress**
 
-> 🚧 **NOT READY FOR USE**
-
 ## To-Do
 - [x] Fix the verfied svg no showing in production
 - [x] Fix the loading screen not showing in production
-- [ ] Fix the api webhook to setDoc proUser true
-- [ ] Fix footer SVGs to allow styling for textcolor
-- [ ] Adjust SVGs to be brighter, matching the platform color on social cards
+- [x] Fix the api webhook to setDoc proUser true (backend api/getSession verifies stripe paid status)
+- [x] Fix SVGs to allow styling for color
+- [x] Adjust SVGs to be brighter, matching the platform color on social cards
 - [ ] Add more caching to store user info and prevent multiple calls
-- [ ] Add analytics dashboard for user interactions
+- [x] Add analytics dashboard for user interactions
 - [ ] Improve user interface and experience
 - [ ] Add support for more social platforms
 

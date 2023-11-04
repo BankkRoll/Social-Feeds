@@ -111,7 +111,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
     }
   };
 
-    const uploadToImgbb = async (imageFile: File, apiKey: string) => {
+  const uploadToImgbb = async (imageFile: File, apiKey: string) => {
     const formData = new FormData();
     formData.append("image", imageFile);
     const response = await fetch(
