@@ -85,7 +85,7 @@ const LoadingScreen: React.FC = () => {
           <motion.img
             src={logoPath}
             alt="Loading"
-            className="mb-6 w-64 h-24"
+            className="mb-6 w-96 h-24"
             variants={item}
             animate={{
               scale: [1, 1.1, 1],
