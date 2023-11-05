@@ -76,7 +76,7 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content={`https://socialfeeds.vercel.app/testr.png`}
+          content={`https://socialfeeds.vercel.app/api/og-home`}
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://socialfeeds.vercel.app/`} />
@@ -90,10 +90,10 @@ export default function Home() {
         />
         <meta
           name="twitter:image"
-          content={`https://socialfeeds.vercel.app/testr.png`}
+          content={`https://socialfeeds.vercel.app/api/og-home`}
         />
       </Head>
-      
+
       <div className="bg-background max-w-4xl m-auto flex flex-col items-center justify-center min-h-screen">
         <section className="text-center space-y-4 my-24">
           <h1 className="text-6xl font-extrabold tracking-tight">
