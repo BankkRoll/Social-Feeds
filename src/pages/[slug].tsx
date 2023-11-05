@@ -82,70 +82,76 @@ const UserProfile: React.FC = () => {
 
   return (
     <>
-      <Head>
-        <title>{`${userData?.profile?.userName || "User"} | SocialTree`}</title>
-        <meta
-          name="description"
-          content={`View ${
-            userData?.profile?.userName || "User"
-          }'s unified social profile. Connect on platforms like Twitter, OnlyFans, and more with SocialTree.`}
-        />
-        <meta
-          name="keywords"
-          content="Unified Social Profile, SocialTree, Social Media, Twitter, OnlyFans"
-        />
-        <link
-          rel="canonical"
-          href={`https://socialfeeds.vercel.app/${userData?.profile?.userName}`}
-        />
+<Head>
+  <title>{userData?.profile?.userName ? `${userData.profile.userName} | SocialTree` : "SocialTree"}</title>
+  <meta
+    name="description"
+    content={`View ${
+      userData?.profile?.userName || "User"
+    }'s unified social profile. Connect on platforms like Twitter, OnlyFans, and more with SocialTree.`}
+  />
+  <meta
+    name="keywords"
+    content="Unified Social Profile, SocialTree, Social Media, Twitter, OnlyFans"
+  />
+  <link
+    rel="canonical"
+    href={`https://socialfeeds.vercel.app/${userData?.profile?.userName}`}
+  />
 
-        <meta
-          property="og:title"
-          content={`Unified Social Profile for ${
-            userData?.profile?.userName || "User"
-          } | SocialTree`}
-        />
-        <meta
-          property="og:description"
-          content={`Connect with ${
-            userData?.profile?.userName || "User"
-          } on multiple platforms with SocialTree.`}
-        />
-        <meta
-          property="og:image"
-          content={`https://socialfeeds.vercel.app/api/og?userName=${userData?.profile?.userName}&avatarUrl=${userData?.profile?.avatarImg}&bannerUrl=${userData?.profile?.bannerImg}`}
-        />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content={`https://socialfeeds.vercel.app/${userData?.profile?.userName}`}
-        />
+  <meta
+    property="og:title"
+    content={`Unified Social Profile for ${
+      userData?.profile?.userName || "User"
+    } | SocialTree`}
+  />
+  <meta
+    property="og:description"
+    content={`Connect with ${
+      userData?.profile?.userName || "User"
+    } on multiple platforms with SocialTree.`}
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content={`https://socialfeeds.vercel.app/${userData?.profile?.userName}`}
+  />
 
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:site"
-          content={`@${
-            userData?.socials?.twitter?.siteurl?.split("/").pop() ||
-            "yourTwitterHandle"
-          }`}
-        />
-        <meta
-          name="twitter:title"
-          content={`Unified Social Profile for ${
-            userData?.profile?.userName || "User"
-          } | SocialTree`}
-        />
-        <meta
-          name="twitter:description"
-          content={`Connect with ${
-            userData?.profile?.userName || "User"
-          } on multiple platforms with SocialTree.`}
-        />
-        <meta
-          name="twitter:image"
-          content={`https://socialfeeds.vercel.app/api/og?userName=${userData?.profile?.userName}&avatarUrl=${userData?.profile?.avatarImg}&bannerUrl=${userData?.profile?.bannerImg}`}
-        />
-      </Head>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:site"
+    content={`@${
+      userData?.socials?.twitter?.siteurl?.split("/").pop() ||
+      "yourTwitterHandle"
+    }`}
+  />
+  <meta
+    name="twitter:title"
+    content={`Unified Social Profile for ${
+      userData?.profile?.userName || "User"
+    } | SocialTree`}
+  />
+  <meta
+    name="twitter:description"
+    content={`Connect with ${
+      userData?.profile?.userName || "User"
+    } on multiple platforms with SocialTree.`}
+  />
+
+  {userData?.profile?.userName && userData.profile?.avatarImg && userData.profile?.bannerImg && (
+    <>
+      <meta
+        property="og:image"
+        content={`https://socialfeeds.vercel.app/api/og?userName=${encodeURIComponent(userData.profile.userName)}&avatarUrl=${encodeURIComponent(userData.profile.avatarImg)}&bannerUrl=${encodeURIComponent(userData.profile.bannerImg)}`}
+      />
+      <meta
+        name="twitter:image"
+        content={`https://socialfeeds.vercel.app/api/og?userName=${encodeURIComponent(userData.profile.userName)}&avatarUrl=${encodeURIComponent(userData.profile.avatarImg)}&bannerUrl=${encodeURIComponent(userData.profile.bannerImg)}`}
+      />
+    </>
+  )}
+</Head>
+
 
       {showLoadingScreen && <LoadingScreen />}
 
