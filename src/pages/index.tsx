@@ -58,21 +58,21 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>{`SocialTree | Social Profile`}</title>
+        <title>{`SocialFeeds | Social Profile`}</title>
         <meta
           name="description"
-          content={`Connect on platforms like Twitter, OnlyFans, and more with SocialTree.`}
+          content={`Connect on platforms like Twitter, OnlyFans, and more with SocialFeeds.`}
         />
         <meta
           name="keywords"
-          content="Unified Social Profile, SocialTree, Social Media, Twitter, OnlyFans"
+          content="Unified Social Profile, SocialFeeds, Social Media, Twitter, OnlyFans"
         />
         <link rel="canonical" href={`https://socialfeeds.vercel.app/`} />
 
-        <meta property="og:title" content={`SocialTree | Social Profile`} />
+        <meta property="og:title" content={`SocialFeeds | Social Profile`} />
         <meta
           property="og:description"
-          content={`Connect with on multiple platforms with SocialTree.`}
+          content={`Connect with on multiple platforms with SocialFeeds.`}
         />
         <meta
           property="og:image"
@@ -83,17 +83,17 @@ export default function Home() {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content={`@bankkroll_eth`} />
-        <meta name="twitter:title" content={`SocialTree | Social Profile`} />
+        <meta name="twitter:title" content={`SocialFeeds | Social Profile`} />
         <meta
           name="twitter:description"
-          content={`Connect with on multiple platforms with SocialTree.`}
+          content={`Connect with on multiple platforms with SocialFeeds.`}
         />
         <meta
           name="twitter:image"
           content={`https://socialfeeds.vercel.app/og.png`}
         />
       </Head>
-      
+
       <div className="bg-background max-w-4xl m-auto flex flex-col items-center justify-center min-h-screen">
         <section className="text-center space-y-4 my-24">
           <h1 className="text-6xl font-extrabold tracking-tight">
@@ -103,7 +103,7 @@ export default function Home() {
               height={300}
               className="inline-flex h-16 w-64"
               src="/testr.png"
-              alt="SocialTree"
+              alt="SocialFeeds"
             />
           </h1>
           <p className="text-2xl font-medium">

@@ -14,6 +14,7 @@ import {
 import { Skeleton } from "../../components/ui/skeleton";
 import Subscription from "../../components/Subscription";
 import Analytics from "../../components/Analytics";
+import Head from "next/head";
 
 const Profile: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -81,6 +82,82 @@ const Profile: React.FC = () => {
   }
 
   return (
+    <>
+      <Head>
+        <title>
+          {router.query.slug
+            ? `${router.query.slug} | SocialFeeds`
+            : "SocialFeeds"}
+        </title>
+        <meta
+          name="description"
+          content={`View ${
+            router.query.slug || "User"
+          }'s unified social profile. Connect on platforms like Twitter, OnlyFans, and more with SocialFeeds.`}
+        />
+        <meta
+          name="keywords"
+          content="Unified Social Profile, SocialFeeds, Social Media, Twitter, OnlyFans"
+        />
+        <link
+          rel="canonical"
+          href={`https://socialfeeds.vercel.app/${router.query.slug}`}
+        />
+
+        <meta
+          property="og:title"
+          content={`Unified Social Profile for ${
+            router.query.slug || "User"
+          } | SocialFeeds`}
+        />
+        <meta
+          property="og:description"
+          content={`Connect with ${
+            router.query.slug || "User"
+          } on multiple platforms with SocialFeeds.`}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`https://socialfeeds.vercel.app/${router.query.slug}`}
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:site"
+          content={`@${router.query.slug || "yourTwitterHandle"}`}
+        />
+        <meta
+          name="twitter:title"
+          content={`Unified Social Profile for ${
+            router.query.slug || "User"
+          } | SocialFeeds`}
+        />
+        <meta
+          name="twitter:description"
+          content={`Connect with ${
+            router.query.slug || "User"
+          } on multiple platforms with SocialFeeds.`}
+        />
+        {typeof router.query.slug === "string" && (
+          <>
+            <meta
+              property="og:image"
+              content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
+                router.query.slug
+              )}`}
+            />
+            <meta
+              name="twitter:image"
+              content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
+                router.query.slug
+              )}`}
+            />
+          </>
+        )}
+      </Head>
+
+      
     <div className="profile-container mx-auto flex p-2 md:p-4 max-w-5xl">
       <Tabs defaultValue="settings" className="w-full flex">
         <div className="w-1/4 p-2 md:p-4 bg-background">
@@ -174,6 +251,7 @@ const Profile: React.FC = () => {
         </div>
       </Tabs>
     </div>
+    </>
   );
 };
 
