@@ -10,40 +10,40 @@ import {
 const Features: React.FC = () => {
   const cards = [
     {
-      title: "Unified Social Profiles",
+      title: "One-Stop Social Hub",
       description:
-        "Seamlessly integrate multiple social platforms into one unified profile. Streamline your online presence effortlessly.",
-      size: "md",
-    },
-    {
-      title: "Extensive Social Support",
-      description:
-        "From Twitter to OnlyFans, we provide expansive support for numerous social networks, enabling a comprehensive online reach.",
+        "Break free from the constraints of Linktree with a unified profile that integrates links from all your social platforms, creating a centralized hub for your online presence and simplifying audience engagement.",
       size: "lg",
     },
     {
-      title: "Dynamic Customization",
+      title: "Versatile Network Integration",
       description:
-        "Personalize your profile and social links with our intuitive customization features. Reflect your brand, your way.",
-      size: "lg",
-    },
-    {
-      title: "Real-time Analytics",
-      description:
-        "Access insightful analytics to understand your audience better. Make data-driven decisions to optimize engagement.",
+        "Our platform stands out with support for a diverse array of social networks, from mainstream platforms like Twitter to niche networks like OnlyFans. Ensure no part of your online persona is left behind.",
       size: "md",
     },
     {
-      title: "Robust Security",
+      title: "Tailored Customization",
       description:
-        "Prioritize your privacy with our top-notch security measures. Keep your data and your profile secure and confidential.",
+        "Upgrade from Linktree's limited customization with our dynamic features. Personalize your profile with unique layouts, color palettes, and styles that resonate with your brand's identity.",
       size: "md",
     },
     {
-      title: "Seamless Sharing",
+      title: "Insightful Analytics",
       description:
-        "Share your unified profile effortlessly across the web. Our platform is optimized for flawless sharing on various mediums.",
+        "Stay ahead with real-time analytics that provide a deeper understanding of your audience's interactions. Monitor link clicks and user engagement, and refine your strategy for maximum impact.",
       size: "lg",
+    },
+    {
+      title: "SEO-Optimized Profiles",
+      description:
+        "Boost your online visibility with SEO-optimized profiles. Customize metadata, keywords, and descriptions to enhance your search engine rankings, driving more organic traffic to your profile.",
+      size: "lg",
+    },
+    {
+      title: "Effortless Profile Sharing",
+      description:
+        "Our platform ensures that sharing your profile is a breeze, no matter the medium. With clean and concise links, you can share your profile effortlessly on social media, emails, or even text messages.",
+      size: "md",
     },
   ];
 

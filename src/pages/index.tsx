@@ -5,6 +5,8 @@ import { DocumentData, collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseClient";
 import FootBar from "../../components/FootBar";
 import PricePlan from "../../components/Pricing";
+import Image from "next/image";
+import Head from "next/head";
 
 const CACHE_KEY = "randomProfiles";
 const CACHE_DURATION = 1000 * 60 * 60 * 2;
@@ -54,25 +56,66 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-background max-w-4xl m-auto flex flex-col items-center justify-center min-h-screen">
-      <section className="text-center space-y-4 my-24">
-        <h1 className="text-6xl font-extrabold tracking-tight">
-          Welcome to{" "}
-          <img
-            className="flex inline-flex h-16 w-64"
-            src="/testr.png"
-            alt="SocialTree"
-          />
-        </h1>
-        <p className="text-2xl font-medium">
-          Unify Your Online Presence Like Never Before
-        </p>
-      </section>
-      <Features />
-      <PricePlan />
+    <>
+      <Head>
+        <title>{`SocialTree | Social Profile`}</title>
+        <meta
+          name="description"
+          content={`Connect on platforms like Twitter, OnlyFans, and more with SocialTree.`}
+        />
+        <meta
+          name="keywords"
+          content="Unified Social Profile, SocialTree, Social Media, Twitter, OnlyFans"
+        />
+        <link rel="canonical" href={`https://socialfeeds.vercel.app/`} />
 
-      <FeaturedProfiles randomProfiles={randomProfiles} />
-      <FootBar />
-    </div>
+        <meta property="og:title" content={`SocialTree | Social Profile`} />
+        <meta
+          property="og:description"
+          content={`Connect with on multiple platforms with SocialTree.`}
+        />
+        <meta
+          property="og:image"
+          content={`https://socialfeeds.vercel.app/testr.png`}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://socialfeeds.vercel.app/`} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content={`@bankkroll_eth`} />
+        <meta name="twitter:title" content={`SocialTree | Social Profile`} />
+        <meta
+          name="twitter:description"
+          content={`Connect with on multiple platforms with SocialTree.`}
+        />
+        <meta
+          name="twitter:image"
+          content={`https://socialfeeds.vercel.app/testr.png`}
+        />
+      </Head>
+      
+      <div className="bg-background max-w-4xl m-auto flex flex-col items-center justify-center min-h-screen">
+        <section className="text-center space-y-4 my-24">
+          <h1 className="text-6xl font-extrabold tracking-tight">
+            Welcome to{" "}
+            <Image
+              width={300}
+              height={300}
+              className="inline-flex h-16 w-64"
+              src="/testr.png"
+              alt="SocialTree"
+            />
+          </h1>
+          <p className="text-2xl font-medium">
+            Unify Your Online Presence Like Never Before
+          </p>
+        </section>
+        <Features />
+        <PricePlan />
+
+        <FeaturedProfiles randomProfiles={randomProfiles} />
+        <FootBar />
+      </div>
+    </>
   );
 }

@@ -13,6 +13,8 @@ import { db } from "../../firebaseClient";
 import { Tweet } from "react-tweet";
 import LoadingScreen from "../../components/ui/loading";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import Image from "next/image";
 
 interface TweetType {
   id: string;
@@ -80,6 +82,71 @@ const UserProfile: React.FC = () => {
 
   return (
     <>
+      <Head>
+        <title>{`${userData?.profile?.userName || "User"} | SocialTree`}</title>
+        <meta
+          name="description"
+          content={`View ${
+            userData?.profile?.userName || "User"
+          }'s unified social profile. Connect on platforms like Twitter, OnlyFans, and more with SocialTree.`}
+        />
+        <meta
+          name="keywords"
+          content="Unified Social Profile, SocialTree, Social Media, Twitter, OnlyFans"
+        />
+        <link
+          rel="canonical"
+          href={`https://socialfeeds.vercel.app/${userData?.profile?.userName}`}
+        />
+
+        <meta
+          property="og:title"
+          content={`Unified Social Profile for ${
+            userData?.profile?.userName || "User"
+          } | SocialTree`}
+        />
+        <meta
+          property="og:description"
+          content={`Connect with ${
+            userData?.profile?.userName || "User"
+          } on multiple platforms with SocialTree.`}
+        />
+        <meta
+          property="og:image"
+          content={`https://socialfeeds.vercel.app/api/og?userName=${userData?.profile?.userName}&avatarUrl=${userData?.profile?.avatarImg}&bannerUrl=${userData?.profile?.bannerImg}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`https://socialfeeds.vercel.app/${userData?.profile?.userName}`}
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:site"
+          content={`@${
+            userData?.socials?.twitter?.siteurl?.split("/").pop() ||
+            "yourTwitterHandle"
+          }`}
+        />
+        <meta
+          name="twitter:title"
+          content={`Unified Social Profile for ${
+            userData?.profile?.userName || "User"
+          } | SocialTree`}
+        />
+        <meta
+          name="twitter:description"
+          content={`Connect with ${
+            userData?.profile?.userName || "User"
+          } on multiple platforms with SocialTree.`}
+        />
+        <meta
+          name="twitter:image"
+          content={`https://socialfeeds.vercel.app/api/og?userName=${userData?.profile?.userName}&avatarUrl=${userData?.profile?.avatarImg}&bannerUrl=${userData?.profile?.bannerImg}`}
+        />
+      </Head>
+
       {showLoadingScreen && <LoadingScreen />}
 
       <div
@@ -97,10 +164,12 @@ const UserProfile: React.FC = () => {
           }}
         >
           <div className="relative w-full h-full overflow-hidden">
-            <img
+            <Image
               className="object-cover w-full h-full"
               src={userData?.profile?.bannerImg}
               alt="Profile Banner"
+              width={800}
+              height={800}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-90"></div>
             <div className="absolute bottom-16 left-12 flex items-center">
@@ -123,10 +192,12 @@ const UserProfile: React.FC = () => {
                 </span>
               </h1>
               {userData?.verifiedUser && (
-                <img
+                <Image
                   src="/Verified.svg"
                   alt="Verified"
                   className="text-primary w-14 h-14 ml-2"
+                  width={500}
+                  height={500}
                 />
               )}
             </div>
@@ -168,14 +239,22 @@ const UserProfile: React.FC = () => {
                 key={platform}
               >
                 <div className="relative rounded-lg overflow-hidden group hover:scale-105 transition-transform duration-200 ease-in-out">
-                  <img
+                  <Image
                     className="object-cover w-full h-full filter grayscale group-hover:grayscale-0 transition-all duration-200 ease-in-out"
                     src={userData?.socials[platform]?.thumbnailurl}
                     alt={`${platform} Thumbnail`}
+                    width={500}
+                    height={500}
                   />
                   <div className="absolute top-2 right-2 p-2">
                     <div className="bg-white rounded-full p-1">
-                      <img className="w-8 h-8" src={svgPath} alt={platform} />
+                      <Image
+                        width="64"
+                        height="64"
+                        className="w-8 h-8"
+                        src={svgPath}
+                        alt={platform}
+                      />
                     </div>
                   </div>
                   <div className="absolute bottom-0 left-0 p-4 bg-black bg-opacity-60">
@@ -218,28 +297,34 @@ const UserProfile: React.FC = () => {
           <div className="flex gap-4">
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <img
+                <Image
                   src="/svg/location.svg"
                   alt="Location Icon"
                   className="w-6 h-6"
+                  width="24"
+                  height="24"
                 />
                 <span className="text-lg font-medium">Location:</span>
                 <span className="text-lg">{userData?.profile?.location}</span>
               </div>
               <div className="flex items-center space-x-2">
-                <img
+                <Image
                   src="/svg/occupation.svg"
                   alt="Occupation Icon"
                   className="w-6 h-6"
+                  width="24"
+                  height="24"
                 />
                 <span className="text-lg font-medium">Occupation:</span>
                 <span className="text-lg">{userData?.profile?.occupation}</span>
               </div>
               <div className="flex items-center space-x-2">
-                <img
+                <Image
                   src="/svg/email.svg"
                   alt="Occupation Icon"
                   className="w-6 h-6"
+                  width="24"
+                  height="24"
                 />
                 <span className="text-lg font-medium">Email:</span>
                 <a
@@ -263,7 +348,13 @@ const UserProfile: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img className="h-6 w-24" src="/testr.png" alt="SocialTree" />
+            <Image
+              width="200"
+              height="100"
+              className="h-6 w-24"
+              src="/testr.png"
+              alt="SocialTree"
+            />
           </a>
         </div>
       </div>
