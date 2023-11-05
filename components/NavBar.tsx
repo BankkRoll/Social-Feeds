@@ -162,7 +162,7 @@ const Navbar: React.FC = () => {
         <div className="flex-shrink-0">
           <Link href="/">
             <img
-              className="md:h-12 md:w-52 h-8 w-32"
+              className="md:h-12 md:w-64 h-10 w-36"
               src="/testr.png"
               alt="SocialTree"
             />

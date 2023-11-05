@@ -86,13 +86,13 @@ const Profile: React.FC = () => {
       <Head>
         <title>
           {userData?.profile?.userName
-            ? `${userData.profile.userName} | SocialFeeds`
+            ? `${userData.profile.userName} Profile | SocialFeeds`
             : "SocialFeeds"}
         </title>
         <meta
           name="description"
           content={`View ${
-            userData?.profile?.userName
+            userData?.profile?.userName || "SocialFeeds"
           }'s unified social profile. Connect on platforms like Twitter, Kick, Twitch, YouTube, OnlyFans, and more with SocialFeeds.`}
         />
         <meta
@@ -101,63 +101,59 @@ const Profile: React.FC = () => {
         />
         <link
           rel="canonical"
-          href={`https://socialfeeds.vercel.app/${router.query.slug}`}
+          href={`https://socialfeeds.vercel.app/${router.query.slug || ""}`}
         />
-
         <meta
           property="og:title"
           content={`Unified Social Profile for ${
-            router.query.slug
+            router.query.slug ? `${router.query.slug} Profile` : "SocialFeeds"
           } | SocialFeeds`}
         />
         <meta
           property="og:description"
           content={`Connect with ${
-            router.query.slug
+            router.query.slug || "SocialFeeds"
           } on multiple platforms with SocialFeeds.`}
         />
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={`https://socialfeeds.vercel.app/${userData?.profile?.userName}`}
+          content={`https://socialfeeds.vercel.app/${
+            userData?.profile?.userName || ""
+          }`}
         />
-
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:site"
           content={`@${
             userData?.socials?.twitter?.siteurl?.split("/").pop() ||
-            "yourTwitterHandle"
+            "SocialFeeds"
           }`}
         />
         <meta
           name="twitter:title"
           content={`Unified Social Profile for ${
-            router.query.slug
+            router.query.slug ? `${router.query.slug} Profile` : "SocialFeeds"
           } | SocialFeeds`}
         />
         <meta
           name="twitter:description"
           content={`Connect with ${
-            router.query.slug
+            router.query.slug || "SocialFeeds"
           } on multiple platforms with SocialFeeds.`}
         />
-        {userData?.profile?.userName && (
-          <>
-            <meta
-              property="og:image"
-              content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
-                userData.profile.userName
-              )}`}
-            />
-            <meta
-              name="twitter:image"
-              content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
-                userData.profile.userName
-              )}`}
-            />
-          </>
-        )}
+        <meta
+          property="og:image"
+          content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
+            userData?.profile?.userName || "SocialFeeds",
+          )}`}
+        />
+        <meta
+          name="twitter:image"
+          content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
+            userData?.profile?.userName || "SocialFeeds",
+          )}`}
+        />
       </Head>
 
       <div className="profile-container mx-auto flex p-2 md:p-4 max-w-5xl">
@@ -227,7 +223,7 @@ const Profile: React.FC = () => {
               )}
             </TabsContent>
             <TabsContent value="subscription">
-              <div className="flex flex-col items-center justify-center h-full">
+              <div className="flex flex-col mt-4 items-center justify-center h-full">
                 <h2 className="text-2xl font-semibold mb-4">
                   Subscription Settings
                 </h2>

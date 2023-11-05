@@ -9,6 +9,10 @@ const getSession = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const { sessionId } = req.body;
 
+    if (!sessionId || typeof sessionId !== "string") {
+      return res.status(400).json({ error: "Invalid session ID" });
+    }
+
     try {
       const session = await stripe.checkout.sessions.retrieve(sessionId);
       res.status(200).json(session);

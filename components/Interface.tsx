@@ -18,7 +18,7 @@ interface InterfaceProps {
 const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
   const address = useAddress();
   const [selectedFont, setSelectedFont] = useState<string>(
-    interfaceData?.general?.font || ""
+    interfaceData?.general?.font || "",
   );
   const [settings, setSettings] = useState<any>(
     interfaceData || {
@@ -32,7 +32,7 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
       socials: { titleColor: "", descriptionColor: "" },
       otherInfo: { textColor: "" },
       contact: { textColor: "", emailUnderlineColor: "" },
-    }
+    },
   );
   const [gradientColors, setGradientColors] = useState<string[]>([]);
   const [useGradient, setUseGradient] = useState<boolean>(false);
@@ -45,7 +45,7 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
     } else if (type === "gradient") {
       setUseGradient(true);
       newSettings.general.backgroundColor = `linear-gradient(${gradientColors.join(
-        ","
+        ",",
       )})`;
     }
     setSettings(newSettings);
@@ -54,7 +54,7 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
   const updateColorSetting = (
     newColor: string,
     category: string,
-    key: string
+    key: string,
   ) => {
     const newSettings = { ...settings };
     newSettings[category][key] = newColor;
@@ -74,7 +74,7 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
               general: { ...settings.general, font: selectedFont },
             },
           },
-          { merge: true }
+          { merge: true },
         );
 
         const profileUrl = `/${userData.profile.userName}`;
@@ -122,7 +122,7 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
   }, [userData]);
 
   return (
-    <div className="interface-settings-container mx-auto p-8">
+    <div className="interface-settings-container mx-auto p-2 md:p-6">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-semibold tracking-wider">
           Interface Settings
@@ -214,7 +214,7 @@ const Interface: React.FC<InterfaceProps> = ({ interfaceData, userData }) => {
                 updateColorSetting(
                   newColor,
                   "header",
-                  "userNameBackgroundColor"
+                  "userNameBackgroundColor",
                 )
               }
             />

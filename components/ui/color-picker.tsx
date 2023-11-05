@@ -1,11 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
 interface CircularColorPickerProps {
   value: string;
   onChange: (newColor: string) => void;
 }
 
-const CircularColorPicker: React.FC<CircularColorPickerProps> = ({ value, onChange }) => {
+const CircularColorPicker: React.FC<CircularColorPickerProps> = ({
+  value,
+  onChange,
+}) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleDivClick = () => {

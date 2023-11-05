@@ -1,44 +1,52 @@
 import * as React from "react";
 import { CheckIcon } from "@radix-ui/react-icons";
-import { Command, CommandEmpty, CommandGroup, CommandItem, CommandInput } from "./command";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandInput,
+} from "./command";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Button } from "./button";
 
 const fonts = [
-    { value: "Arial", label: "Arial" },
-    { value: "Verdana", label: "Verdana" },
-    { value: "Times New Roman", label: "Times New Roman" },
-    { value: "Georgia", label: "Georgia" },
-    { value: "Courier New", label: "Courier New" },
-    { value: "Comic Sans MS", label: "Comic Sans MS" },
-    { value: "Tahoma", label: "Tahoma" },
-    { value: "Lucida Sans Unicode", label: "Lucida Sans Unicode" },
-    { value: "Impact", label: "Impact" },
-    { value: "Trebuchet MS", label: "Trebuchet MS" },
-    { value: "Palatino Linotype", label: "Palatino Linotype" },
-    { value: "Sylfaen", label: "Sylfaen" },
-    { value: "Consolas", label: "Consolas" },
-    { value: "Franklin Gothic Medium", label: "Franklin Gothic Medium" },
-    { value: "Gill Sans", label: "Gill Sans" },
-    { value: "Century Gothic", label: "Century Gothic" },
-    { value: "Lucida Console", label: "Lucida Console" },
-    { value: "Bookman Old Style", label: "Bookman Old Style" },
-    { value: "Garamond", label: "Garamond" },
-    { value: "MS Sans Serif", label: "MS Sans Serif" },
-    { value: "MS Serif", label: "MS Serif" },
-    { value: "Symbol", label: "Symbol" },
-    { value: "Webdings", label: "Webdings" },
-    { value: "Wingdings", label: "Wingdings" },
-    { value: "Book Antiqua", label: "Book Antiqua" }
+  { value: "Arial", label: "Arial" },
+  { value: "Verdana", label: "Verdana" },
+  { value: "Times New Roman", label: "Times New Roman" },
+  { value: "Georgia", label: "Georgia" },
+  { value: "Courier New", label: "Courier New" },
+  { value: "Comic Sans MS", label: "Comic Sans MS" },
+  { value: "Tahoma", label: "Tahoma" },
+  { value: "Lucida Sans Unicode", label: "Lucida Sans Unicode" },
+  { value: "Impact", label: "Impact" },
+  { value: "Trebuchet MS", label: "Trebuchet MS" },
+  { value: "Palatino Linotype", label: "Palatino Linotype" },
+  { value: "Sylfaen", label: "Sylfaen" },
+  { value: "Consolas", label: "Consolas" },
+  { value: "Franklin Gothic Medium", label: "Franklin Gothic Medium" },
+  { value: "Gill Sans", label: "Gill Sans" },
+  { value: "Century Gothic", label: "Century Gothic" },
+  { value: "Lucida Console", label: "Lucida Console" },
+  { value: "Bookman Old Style", label: "Bookman Old Style" },
+  { value: "Garamond", label: "Garamond" },
+  { value: "MS Sans Serif", label: "MS Sans Serif" },
+  { value: "MS Serif", label: "MS Serif" },
+  { value: "Symbol", label: "Symbol" },
+  { value: "Webdings", label: "Webdings" },
+  { value: "Wingdings", label: "Wingdings" },
+  { value: "Book Antiqua", label: "Book Antiqua" },
 ];
-
 
 interface FontComboboxProps {
   selectedFont: string;
   setSelectedFont: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function FontCombobox({ selectedFont, setSelectedFont }: FontComboboxProps) {
+export function FontCombobox({
+  selectedFont,
+  setSelectedFont,
+}: FontComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -71,7 +79,9 @@ export function FontCombobox({ selectedFont, setSelectedFont }: FontComboboxProp
               >
                 {font.label}
                 <CheckIcon
-                  className={`ml-auto h-4 w-4 ${selectedFont === font.value ? "opacity-100" : "opacity-0"}`}
+                  className={`ml-auto h-4 w-4 ${
+                    selectedFont === font.value ? "opacity-100" : "opacity-0"
+                  }`}
                 />
               </CommandItem>
             ))}

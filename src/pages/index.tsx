@@ -13,7 +13,7 @@ const CACHE_DURATION = 1000 * 60 * 60 * 2;
 
 export default function Home() {
   const [randomProfiles, setRandomProfiles] = useState<DocumentData[] | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Home() {
         JSON.stringify({
           data: slicedProfiles,
           timestamp: new Date().getTime(),
-        })
+        }),
       );
     };
 

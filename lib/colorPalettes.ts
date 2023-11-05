@@ -78,7 +78,7 @@ export const colorPalettes = [
     },
     loading: {
       backgroundColor: "#B5A59D",
-    }
+    },
   },
   {
     // Palette 4: Nature & Tranquil
@@ -105,7 +105,7 @@ export const colorPalettes = [
     },
     loading: {
       backgroundColor: "#C598D8",
-    }
+    },
   },
   {
     // Palette 5: Retro & Vintage
@@ -132,6 +132,6 @@ export const colorPalettes = [
     },
     loading: {
       backgroundColor: "#C4A77D",
-    }
+    },
   },
 ];

@@ -52,33 +52,45 @@ const Analytics: React.FC = () => {
       const data = payload[0].payload;
       let formattedLabel = label;
       let value = data.value || data.count;
-  
+
       if (dayjs(label).isValid()) {
         const date = dayjs(label).toDate();
         switch (timeframe) {
           case "1d":
-            formattedLabel = new Intl.DateTimeFormat("default", { hour: "2-digit", minute: "2-digit" }).format(date);
+            formattedLabel = new Intl.DateTimeFormat("default", {
+              hour: "2-digit",
+              minute: "2-digit",
+            }).format(date);
             break;
           case "1w":
-            formattedLabel = new Intl.DateTimeFormat("default", { weekday: "short" }).format(date);
+            formattedLabel = new Intl.DateTimeFormat("default", {
+              weekday: "short",
+            }).format(date);
             break;
           case "1m":
-            formattedLabel = new Intl.DateTimeFormat("default", { month: "short", day: "numeric" }).format(date);
+            formattedLabel = new Intl.DateTimeFormat("default", {
+              month: "short",
+              day: "numeric",
+            }).format(date);
             break;
           default:
-            formattedLabel = new Intl.DateTimeFormat("default", { year: "numeric", month: "short", day: "numeric" }).format(date);
+            formattedLabel = new Intl.DateTimeFormat("default", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            }).format(date);
             break;
         }
       }
-  
+
       if (data.name && colorsForDevices[data.name]) {
         formattedLabel = data.name;
       }
-  
+
       if (data.name && !colorsForDevices[data.name]) {
         formattedLabel = `Referrer: ${data.name}`;
       }
-  
+
       return (
         <div className="custom-tooltip p-2 bg-gray-800 text-white rounded-md">
           <p className="label">{`${formattedLabel} : ${value}`}</p>
@@ -87,7 +99,6 @@ const Analytics: React.FC = () => {
     }
     return null;
   };
-  
 
   useEffect(() => {
     const fetchAnalyticsData = async () => {
@@ -135,15 +146,18 @@ const Analytics: React.FC = () => {
   });
 
   const platformChartData = Object.entries(
-    filteredData.reduce((acc, view) => {
-      const ua = new UAParser(view.platform);
-      let device: string = "Web";
-      if (ua.getDevice().type) {
-        device = ua.getDevice().model || ua.getDevice().type || "Unknown";
-      }
-      acc[device] = (acc[device] || 0) + 1;
-      return acc;
-    }, {} as { [key: string]: number })
+    filteredData.reduce(
+      (acc, view) => {
+        const ua = new UAParser(view.platform);
+        let device: string = "Web";
+        if (ua.getDevice().type) {
+          device = ua.getDevice().model || ua.getDevice().type || "Unknown";
+        }
+        acc[device] = (acc[device] || 0) + 1;
+        return acc;
+      },
+      {} as { [key: string]: number },
+    ),
   ).map(([name, value]) => ({
     name,
     value,
@@ -151,19 +165,26 @@ const Analytics: React.FC = () => {
   }));
 
   const referrerChartData = Object.entries(
-    filteredData.reduce((acc, view) => {
-      acc[view.referrer] = (acc[view.referrer] || 0) + 1;
-      return acc;
-    }, {} as { [key: string]: number })
+    filteredData.reduce(
+      (acc, view) => {
+        const referrer = view.referrer || "Direct";
+        acc[referrer] = (acc[referrer] || 0) + 1;
+        return acc;
+      },
+      {} as { [key: string]: number },
+    ),
   ).map(([name, value]) => ({ name, value, fill: getRandomColor() }));
 
-  const timeSeriesData = filteredData.reduce((acc, view) => {
-    const date = dayjs(view.timestamp);
-    const format = timeframe === "1d" ? "YYYY-MM-DD HH:00" : "YYYY-MM-DD";
-    const formattedDate = date.format(format);
-    acc[formattedDate] = (acc[formattedDate] || 0) + 1;
-    return acc;
-  }, {} as { [key: string]: number });
+  const timeSeriesData = filteredData.reduce(
+    (acc, view) => {
+      const date = dayjs(view.timestamp);
+      const format = timeframe === "1d" ? "YYYY-MM-DD HH:00" : "YYYY-MM-DD";
+      const formattedDate = date.format(format);
+      acc[formattedDate] = (acc[formattedDate] || 0) + 1;
+      return acc;
+    },
+    {} as { [key: string]: number },
+  );
 
   if (timeframe === "1d") {
     for (let i = 0; i <= 24; i++) {
@@ -177,9 +198,11 @@ const Analytics: React.FC = () => {
     .sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix());
 
   return (
-    <div className="analytics-container p-8">
+    <div className="analytics-container p-2 md:p-6">
       <div className="flex flex-col md:flex-row justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold mb-2 md:mb-0">Analytics</h2>
+        <h2 className="text-2xl font-semibold mb-2 md:mb-0">
+          Analytics - {formatTimeframe(timeframe)}
+        </h2>
         <div className="flex flex-col md:flex-row items-center">
           <div className="outline outline-1 p-2 rounded-md mb-2 md:mb-0 md:mr-4">
             Total Views: {filteredData.length}
@@ -198,7 +221,7 @@ const Analytics: React.FC = () => {
       </div>
 
       <div className="mb-6">
-        <h3 className="text-xl font-medium mb-2">Total Views Over Time</h3>
+        <h3 className="text-xl font-medium mb-2">Total Views</h3>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={lineChartData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -252,9 +275,6 @@ const Analytics: React.FC = () => {
       </div>
 
       <div className="mb-6">
-        <h3 className="text-xl font-medium mb-2">
-          Page Views - {formatTimeframe(timeframe)}
-        </h3>
         <div className="views-list mt-4">
           <h4 className="text-lg font-medium mb-2">Device Distribution</h4>
           <div className="flex flex-col md:flex-row">
@@ -290,8 +310,8 @@ const Analytics: React.FC = () => {
 
       <div className="mb-6">
         <h3 className="text-xl font-medium mb-2">Referrer Sources</h3>
-        <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2 md:pr-2 mb-4 md:mb-0">
+        <div className="flex flex-col">
+          <div className="mb-4">
             <ResponsiveContainer width="100%" height={400}>
               <BarChart data={referrerChartData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -302,7 +322,7 @@ const Analytics: React.FC = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="w-full md:w-1/2 md:pl-2">
+          <div>
             <ul className="list-inside list-disc">
               {referrerChartData.map(({ name, value }) => (
                 <li key={name}>

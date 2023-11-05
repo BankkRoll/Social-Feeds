@@ -89,7 +89,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           </div>
         </div>
       ),
-      { width: 1200, height: 630 }
+      { width: 1200, height: 630 },
     );
   } catch (error) {
     console.error(error);

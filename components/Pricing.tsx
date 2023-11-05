@@ -1,3 +1,4 @@
+// components/Pricing.tsx
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";

@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
 
 @layer base {
   :root {
@@ -28,7 +27,7 @@
     --ring: 142.1 76.2% 36.3%;
     --radius: 0.75rem;
   }
- 
+
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
@@ -62,7 +61,6 @@
     @apply bg-background text-foreground;
   }
 }
-
 
 /* For Arial */
 body[data-font="Arial"] {
@@ -136,7 +134,8 @@ body[data-font="Franklin Gothic Medium"] {
 
 /* For Gill Sans */
 body[data-font="Gill Sans"] {
-  font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS", sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
+    sans-serif;
 }
 
 /* For Century Gothic */
@@ -188,4 +187,3 @@ body[data-font="Wingdings"] {
 body[data-font="Book Antiqua"] {
   font-family: "Book Antiqua", Palatino, "Palatino Linotype", serif;
 }
-

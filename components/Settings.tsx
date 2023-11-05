@@ -40,7 +40,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
     userData.tweets || {
       tweet1: { id: "", active: true },
       tweet2: { id: "", active: true },
-    }
+    },
   );
   const [socials, setSocials] = useState<Socials>(userData.socials || {});
   const [deleteStep, setDeleteStep] = useState(0);
@@ -53,7 +53,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
   const handleTweetChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     tweetKey: keyof Tweets,
-    field: "id" | "active"
+    field: "id" | "active",
   ) => {
     const value = field === "id" ? e.target.value : e.target.value === "true";
     setTweets((prevTweets: Tweets) => ({
@@ -67,7 +67,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
 
   const handleSocialChange = (
     e: ChangeEvent<HTMLInputElement>,
-    platform: keyof Socials
+    platform: keyof Socials,
   ) => {
     const { name, value } = e.target;
     setSocials((prevSocials: Socials) => ({
@@ -81,7 +81,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
 
   const handleSocialActiveChange = (
     e: ChangeEvent<HTMLSelectElement>,
-    platform: keyof Socials
+    platform: keyof Socials,
   ) => {
     const value = e.target.value === "true";
     setSocials((prevSocials: Socials) => ({
@@ -95,7 +95,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
 
   const handleImageChange = async (
     e: ChangeEvent<HTMLInputElement>,
-    setImageFile: React.Dispatch<React.SetStateAction<File | null>>
+    setImageFile: React.Dispatch<React.SetStateAction<File | null>>,
   ) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -119,7 +119,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
       {
         method: "POST",
         body: formData,
-      }
+      },
     );
     if (response.ok) {
       const json = await response.json();
@@ -135,7 +135,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
       const usersRef = collection(db, "users");
       const q = query(
         usersRef,
-        where("profile.userName", "==", profile.userName)
+        where("profile.userName", "==", profile.userName),
       );
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty && address !== querySnapshot.docs[0].id) {
@@ -249,7 +249,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
   };
 
   return (
-    <div className="settings-container mx-auto p-8">
+    <div className="settings-container mx-auto p-2 md:p-6">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-semibold tracking-wider">
           Welcome, {profile.userName || "User"}!
@@ -452,15 +452,15 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
           </AccordionItem>
         </Accordion>
 
-        <div className="flex justify-center space-x-4">
+        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
           <Button
-            className="py-2 px-6 text-lg font-semibold rounded-lg shadow-md"
+            className="py-2 px-6 text-lg font-semibold rounded-lg shadow-md w-full sm:w-auto text-center"
             type="submit"
           >
             Save Changes
           </Button>
           <Button
-            className="py-2 px-6 text-lg rounded-lg shadow-md text-red-600 border border-red-600 hover:bg-red-600 hover:text-white"
+            className="py-2 px-6 text-lg rounded-lg shadow-md text-red-600 border border-red-600 hover:bg-red-600 hover:text-white w-full sm:w-auto text-center"
             type="button"
             onClick={handleDeleteAccount}
           >
@@ -468,7 +468,7 @@ const Settings: React.FC<SettingsProps> = ({ userData }) => {
               ? "Delete Account"
               : deleteStep === 1
               ? "Are you sure?"
-              : "Confirm Deletion"}{" "}
+              : "Confirm Deletion"}
           </Button>
         </div>
       </form>

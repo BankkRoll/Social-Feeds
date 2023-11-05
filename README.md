@@ -10,17 +10,18 @@
   - **Settings**
     ![Settings](https://github.com/BankkRoll/Social-Feeds/assets/106103625/e43dce06-5fd4-45e2-9b38-505ae22ac4e2)
 
-  - **Interface**
-    ![Interface](https://github.com/BankkRoll/Social-Feeds/assets/106103625/b250ff62-a7fa-443d-bac5-45a0df96e1b0)
+- **Interface**
+  ![Interface](https://github.com/BankkRoll/Social-Feeds/assets/106103625/b250ff62-a7fa-443d-bac5-45a0df96e1b0)
 
-  - **Analytics**
-    ![Analytics](https://github.com/BankkRoll/Social-Feeds/assets/106103625/0851682a-bb51-4897-956d-49031ccad6f2)
+- **Analytics**
+  ![Analytics](https://github.com/BankkRoll/Social-Feeds/assets/106103625/0851682a-bb51-4897-956d-49031ccad6f2)
 
 </details>
 
 > 🚧 **Status: In Progress**
 
 ## To-Do
+
 - [x] Fix the verfied svg no showing in production
 - [x] Fix the loading screen not showing in production
 - [x] Fix the api webhook to setDoc proUser true (backend api/getSession verifies stripe paid status)
@@ -45,4 +46,3 @@
 ## Usage
 
 To get started, simply sign up and follow the prompts to create your profile and customize your interface. Once you're happy with how it looks, go to settings and click on 'Save' to make it live. Share your unique link to connect with your audience!
-

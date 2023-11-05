@@ -1,3 +1,4 @@
+// components/Subscription.tsx
 import React, { useEffect, useState } from "react";
 import {
   GlowCard,
@@ -50,11 +51,12 @@ export default function Subscription() {
   }, [address]);
 
   const handleManageAccount = () => {
-    window.location.href = "https://dashboard.stripe.com/";
+    window.location.href =
+      "https://billing.stripe.com/p/login/dR63d99qQ62SdnqbII";
   };
 
   return (
-    <div className="subscription-container mx-auto p-8 flex justify-center">
+    <div className="subscription-container mx-auto p-2 md:p-6 flex justify-center">
       <GlowCard className="max-w-md">
         <GlowCardHeader>
           <h1 className="text-3xl font-semibold tracking-wider text-center">

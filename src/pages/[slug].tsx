@@ -75,7 +75,7 @@ const UserProfile: React.FC = () => {
   }, [slug, db, router]);
 
   const backgroundStyle = interfaceData?.general?.backgroundColor.startsWith(
-    "linear-gradient"
+    "linear-gradient",
   )
     ? { background: interfaceData?.general?.backgroundColor }
     : { backgroundColor: interfaceData?.general?.backgroundColor };
@@ -98,46 +98,44 @@ const UserProfile: React.FC = () => {
         />
         <link
           rel="canonical"
-          href={`https://socialfeeds.vercel.app/${router.query.slug}`}
+          href={`https://socialfeeds.vercel.app/${router.query.slug || ""}`}
         />
-
         <meta
           property="og:title"
           content={`${
-            router.query.slug
+            router.query.slug ? router.query.slug : "SocialFeeds"
           } | SocialFeeds`}
         />
         <meta
           property="og:description"
           content={`Connect with ${
-            router.query.slug
+            router.query.slug ? router.query.slug : "SocialFeeds"
           } on multiple platforms with SocialFeeds.`}
         />
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={`https://socialfeeds.vercel.app/${router.query.slug}`}
+          content={`https://socialfeeds.vercel.app/${router.query.slug || ""}`}
         />
         <meta
           property="og:image"
           content={`https://socialfeeds.vercel.app/og.png`}
         />
-
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:site"
-          content={`@${router.query.slug || "yourTwitterHandle"}`}
+          content={`@${router.query.slug || "SocialFeeds"}`}
         />
         <meta
           name="twitter:title"
           content={`${
-            router.query.slug
+            router.query.slug ? router.query.slug : "SocialFeeds"
           } | SocialFeeds`}
         />
         <meta
           name="twitter:description"
           content={`Connect with ${
-            router.query.slug
+            router.query.slug ? router.query.slug : "SocialFeeds"
           } on multiple platforms with SocialFeeds.`}
         />
         {typeof router.query.slug === "string" && (
@@ -145,7 +143,7 @@ const UserProfile: React.FC = () => {
             <meta
               name="twitter:image"
               content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
-                router.query.slug
+                router.query.slug,
               )}`}
             />
           </>
@@ -290,7 +288,7 @@ const UserProfile: React.FC = () => {
                 (tweet, index) =>
                   tweet.active ? (
                     <Tweet key={index} id={String(tweet.id)} />
-                  ) : null
+                  ) : null,
               )
             : null}
         </div>

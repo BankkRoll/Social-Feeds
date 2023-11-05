@@ -1,3 +1,4 @@
+// src/pages/api/checkout_sessions.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { setDoc, doc } from "firebase/firestore";
@@ -9,7 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const origin = req.headers.origin;
   const userAddress = req.body.userAddress;

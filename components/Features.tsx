@@ -48,7 +48,7 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-2 md:p-0">
       {cards.map((card, index) => (
         <GlowCard
           key={index}
