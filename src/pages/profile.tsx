@@ -92,7 +92,7 @@ const Profile: React.FC = () => {
         <meta
           name="description"
           content={`View ${
-            userData?.profile?.userName || "User"
+            userData?.profile?.userName
           }'s unified social profile. Connect on platforms like Twitter, Kick, Twitch, YouTube, OnlyFans, and more with SocialFeeds.`}
         />
         <meta
@@ -107,13 +107,13 @@ const Profile: React.FC = () => {
         <meta
           property="og:title"
           content={`Unified Social Profile for ${
-            router.query.slug || "User"
+            router.query.slug
           } | SocialFeeds`}
         />
         <meta
           property="og:description"
           content={`Connect with ${
-            router.query.slug || "User"
+            router.query.slug
           } on multiple platforms with SocialFeeds.`}
         />
         <meta property="og:type" content="website" />
@@ -133,13 +133,13 @@ const Profile: React.FC = () => {
         <meta
           name="twitter:title"
           content={`Unified Social Profile for ${
-            router.query.slug || "User"
+            router.query.slug
           } | SocialFeeds`}
         />
         <meta
           name="twitter:description"
           content={`Connect with ${
-            router.query.slug || "User"
+            router.query.slug
           } on multiple platforms with SocialFeeds.`}
         />
         {userData?.profile?.userName && (

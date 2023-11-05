@@ -90,9 +90,7 @@ const UserProfile: React.FC = () => {
         </title>
         <meta
           name="description"
-          content={`View ${
-            router.query.slug || "User"
-          }'s unified social profile. Connect on platforms like Twitter, Kick, Twitch, YouTube, OnlyFans, and more with SocialFeeds.`}
+          content={`Connect on platforms like Twitter, Kick, Twitch, YouTube, OnlyFans, and more with SocialFeeds.`}
         />
         <meta
           name="keywords"
@@ -105,14 +103,14 @@ const UserProfile: React.FC = () => {
 
         <meta
           property="og:title"
-          content={`Unified Social Profile for ${
-            router.query.slug || "User"
+          content={`${
+            router.query.slug
           } | SocialFeeds`}
         />
         <meta
           property="og:description"
           content={`Connect with ${
-            router.query.slug || "User"
+            router.query.slug
           } on multiple platforms with SocialFeeds.`}
         />
         <meta property="og:type" content="website" />
@@ -132,14 +130,14 @@ const UserProfile: React.FC = () => {
         />
         <meta
           name="twitter:title"
-          content={`Unified Social Profile for ${
-            router.query.slug || "User"
+          content={`${
+            router.query.slug
           } | SocialFeeds`}
         />
         <meta
           name="twitter:description"
           content={`Connect with ${
-            router.query.slug || "User"
+            router.query.slug
           } on multiple platforms with SocialFeeds.`}
         />
         {typeof router.query.slug === "string" && (
