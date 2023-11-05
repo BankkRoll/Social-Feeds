@@ -85,14 +85,14 @@ const Profile: React.FC = () => {
     <>
       <Head>
         <title>
-          {router.query.slug
-            ? `${router.query.slug} | SocialFeeds`
+          {userData?.profile?.userName
+            ? `${userData.profile.userName} | SocialFeeds`
             : "SocialFeeds"}
         </title>
         <meta
           name="description"
           content={`View ${
-            router.query.slug || "User"
+            userData?.profile?.userName || "User"
           }'s unified social profile. Connect on platforms like Twitter, OnlyFans, and more with SocialFeeds.`}
         />
         <meta
@@ -119,13 +119,16 @@ const Profile: React.FC = () => {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={`https://socialfeeds.vercel.app/${router.query.slug}`}
+          content={`https://socialfeeds.vercel.app/${userData?.profile?.userName}`}
         />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:site"
-          content={`@${router.query.slug || "yourTwitterHandle"}`}
+          content={`@${
+            userData?.socials?.twitter?.siteurl?.split("/").pop() ||
+            "yourTwitterHandle"
+          }`}
         />
         <meta
           name="twitter:title"
@@ -139,118 +142,117 @@ const Profile: React.FC = () => {
             router.query.slug || "User"
           } on multiple platforms with SocialFeeds.`}
         />
-        {typeof router.query.slug === "string" && (
+        {userData?.profile?.userName && (
           <>
             <meta
               property="og:image"
               content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
-                router.query.slug
+                userData.profile.userName
               )}`}
             />
             <meta
               name="twitter:image"
               content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
-                router.query.slug
+                userData.profile.userName
               )}`}
             />
           </>
         )}
       </Head>
 
-      
-    <div className="profile-container mx-auto flex p-2 md:p-4 max-w-5xl">
-      <Tabs defaultValue="settings" className="w-full flex">
-        <div className="w-1/4 p-2 md:p-4 bg-background">
-          <TabsList
-            direction="vertical"
-            className="bg-popover flex flex-col space-y-2"
-          >
-            <TabsTrigger
-              value="settings"
-              className="p-2 rounded-lg cursor-pointer hover:bg-background"
+      <div className="profile-container mx-auto flex p-2 md:p-4 max-w-5xl">
+        <Tabs defaultValue="settings" className="w-full flex">
+          <div className="w-1/4 p-2 md:p-4 bg-background">
+            <TabsList
+              direction="vertical"
+              className="bg-popover flex flex-col space-y-2"
             >
-              Settings
-            </TabsTrigger>
-            <TabsTrigger
-              value="interface"
-              className="p-2 rounded-lg cursor-pointer hover:bg-background"
-            >
-              Interface
-            </TabsTrigger>
-            <TabsTrigger
-              value="subscription"
-              className="p-2 rounded-lg cursor-pointer hover:bg-background"
-            >
-              Subscription
-            </TabsTrigger>
-            <TabsTrigger
-              value="analytics"
-              className="p-2 rounded-lg cursor-pointer hover:bg-background"
-            >
-              Analytics
-            </TabsTrigger>
-          </TabsList>
-        </div>
+              <TabsTrigger
+                value="settings"
+                className="p-2 rounded-lg cursor-pointer hover:bg-background"
+              >
+                Settings
+              </TabsTrigger>
+              <TabsTrigger
+                value="interface"
+                className="p-2 rounded-lg cursor-pointer hover:bg-background"
+              >
+                Interface
+              </TabsTrigger>
+              <TabsTrigger
+                value="subscription"
+                className="p-2 rounded-lg cursor-pointer hover:bg-background"
+              >
+                Subscription
+              </TabsTrigger>
+              <TabsTrigger
+                value="analytics"
+                className="p-2 rounded-lg cursor-pointer hover:bg-background"
+              >
+                Analytics
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
-        <div className="w-3/4 p-4 bg-popover rounded-lg">
-          <TabsContent value="settings">
-            {isProUser ? (
-              <Settings userData={userData} />
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full">
-                <h2 className="text-2xl font-semibold mb-4">Settings</h2>
-                <p className="text-lg text-gray-600 text-center">
-                  Please subscribe to access this section.
-                </p>
-                <Subscription />
-              </div>
-            )}
-          </TabsContent>
-          <TabsContent value="interface">
-            {isProUser ? (
-              <InterfaceSettings
-                userData={userData}
-                interfaceData={userData.interfaceData}
-              />
-            ) : (
+          <div className="w-3/4 p-4 bg-popover rounded-lg">
+            <TabsContent value="settings">
+              {isProUser ? (
+                <Settings userData={userData} />
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full">
+                  <h2 className="text-2xl font-semibold mb-4">Settings</h2>
+                  <p className="text-lg text-gray-600 text-center">
+                    Please subscribe to access this section.
+                  </p>
+                  <Subscription />
+                </div>
+              )}
+            </TabsContent>
+            <TabsContent value="interface">
+              {isProUser ? (
+                <InterfaceSettings
+                  userData={userData}
+                  interfaceData={userData.interfaceData}
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full">
+                  <h2 className="text-2xl font-semibold mb-4">
+                    Interface Settings
+                  </h2>
+                  <p className="text-lg text-gray-600 text-center">
+                    Please subscribe to access this section.
+                  </p>
+                  <Subscription />
+                </div>
+              )}
+            </TabsContent>
+            <TabsContent value="subscription">
               <div className="flex flex-col items-center justify-center h-full">
                 <h2 className="text-2xl font-semibold mb-4">
-                  Interface Settings
+                  Subscription Settings
                 </h2>
                 <p className="text-lg text-gray-600 text-center">
-                  Please subscribe to access this section.
+                  Here you can subscribe to the monthly subscription.
                 </p>
                 <Subscription />
               </div>
-            )}
-          </TabsContent>
-          <TabsContent value="subscription">
-            <div className="flex flex-col items-center justify-center h-full">
-              <h2 className="text-2xl font-semibold mb-4">
-                Subscription Settings
-              </h2>
-              <p className="text-lg text-gray-600 text-center">
-                Here you can subscribe to the monthly subscription.
-              </p>
-              <Subscription />
-            </div>
-          </TabsContent>
-          <TabsContent value="analytics">
-            {isProUser ? (
-              <Analytics />
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full">
-                <h2 className="text-2xl font-semibold mb-4">Analytics</h2>
-                <p className="text-lg text-gray-600 text-center">
-                  Please subscribe to access this section.
-                </p>
-                <Subscription />
-              </div>
-            )}
-          </TabsContent>
-        </div>
-      </Tabs>
-    </div>
+            </TabsContent>
+            <TabsContent value="analytics">
+              {isProUser ? (
+                <Analytics />
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full">
+                  <h2 className="text-2xl font-semibold mb-4">Analytics</h2>
+                  <p className="text-lg text-gray-600 text-center">
+                    Please subscribe to access this section.
+                  </p>
+                  <Subscription />
+                </div>
+              )}
+            </TabsContent>
+          </div>
+        </Tabs>
+      </div>
     </>
   );
 };
