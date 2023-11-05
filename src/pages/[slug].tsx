@@ -92,7 +92,7 @@ const UserProfile: React.FC = () => {
           name="description"
           content={`View ${
             router.query.slug || "User"
-          }'s unified social profile. Connect on platforms like Twitter, OnlyFans, and more with SocialFeeds.`}
+          }'s unified social profile. Connect on platforms like Twitter, Kick, Twitch, YouTube, OnlyFans, and more with SocialFeeds.`}
         />
         <meta
           name="keywords"
@@ -120,6 +120,10 @@ const UserProfile: React.FC = () => {
           property="og:url"
           content={`https://socialfeeds.vercel.app/${router.query.slug}`}
         />
+        <meta
+          property="og:image"
+          content={`https://socialfeeds.vercel.app/og.png`}
+        />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta
@@ -140,12 +144,6 @@ const UserProfile: React.FC = () => {
         />
         {typeof router.query.slug === "string" && (
           <>
-            <meta
-              property="og:image"
-              content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(
-                router.query.slug
-              )}`}
-            />
             <meta
               name="twitter:image"
               content={`https://socialfeeds.vercel.app/api/og?slug=${encodeURIComponent(

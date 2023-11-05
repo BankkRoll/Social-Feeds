@@ -93,7 +93,7 @@ const Profile: React.FC = () => {
           name="description"
           content={`View ${
             userData?.profile?.userName || "User"
-          }'s unified social profile. Connect on platforms like Twitter, OnlyFans, and more with SocialFeeds.`}
+          }'s unified social profile. Connect on platforms like Twitter, Kick, Twitch, YouTube, OnlyFans, and more with SocialFeeds.`}
         />
         <meta
           name="keywords"

@@ -61,7 +61,7 @@ export default function Home() {
         <title>{`SocialFeeds | Social Profile`}</title>
         <meta
           name="description"
-          content={`Connect on platforms like Twitter, OnlyFans, and more with SocialFeeds.`}
+          content={`Connect on platforms like Twitter, Kick, Twitch, YouTube, OnlyFans, and more with SocialFeeds.`}
         />
         <meta
           name="keywords"
