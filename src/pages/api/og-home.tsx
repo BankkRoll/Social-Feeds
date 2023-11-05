@@ -18,7 +18,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           justifyContent: "center",
         }}
       >
-        <img src="/testr.png" style={{ width: "600px", height: "300px" }} />
+        <img
+          src="https://socialfeeds.vercel.app/testr.png"
+          style={{ width: "600px", height: "200px" }}
+        />
       </div>
     ),
     { width: 1200, height: 630 }
